@@ -7,6 +7,6 @@
 
 #include "timer.h"
 
-void printFatalErr(const char *);
+void printFatalErr(char *);
 
 #endif
