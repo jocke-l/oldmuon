@@ -1,5 +1,5 @@
 CC = gcc
-LIBS = -lSDl -lSDL_image
+LIBS = -lSDL -lSDL_image
 
 SOURCE = main.c timer.c
 
