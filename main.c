@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 
 	SDL_Surface *context;
 	SDL_WM_SetCaption("Muon", NULL);
-	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF) == NULL)
+	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
 		printFatalErr("SDl_SetVideoMode Failed!");
 
 	SDL_Event event;
