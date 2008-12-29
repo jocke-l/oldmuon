@@ -25,8 +25,8 @@ int read_mapfile(char *file, Map *working_map) {
 		return -1;
 	}
 	
-	while((tempc = fgetc(fd_mapfile)) != EOF) {
-		switch(tempc) {
+	while ((tempc = fgetc(fd_mapfile)) != EOF) {
+		switch (tempc) {
 			case 'D':
 				printf("Got dimension type!\n");
 				c = getc(fd_mapfile);
