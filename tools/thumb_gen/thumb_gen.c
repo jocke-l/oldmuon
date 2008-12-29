@@ -13,7 +13,7 @@ typedef struct {
 
 
 
-int read_mapfile(char *file, Map *working_map) {	
+int read_mapfile(char *file, Map *cur_map) {	
 	char tempc, c;
 	int i = 0, j = 0;
 	
@@ -30,40 +30,40 @@ int read_mapfile(char *file, Map *working_map) {
 			case 'D':
 				printf("Got dimension type!\n");
 				c = getc(fd_mapfile);
-				cur_map.width = c;
+				cur_map->width = c;
 				c = getc(fd_mapfile);
-				cur_map.width = cur_map.width + c * 0x100;
+				cur_map->width = cur_map->width + c * 0x100;
 				c = getc(fd_mapfile);
-				cur_map.height = c;
+				cur_map->height = c;
 				c = getc(fd_mapfile);
-				cur_map.height = cur_map.height + c * 0x100;
+				cur_map->height = cur_map->height + c * 0x100;
 				break;
 			case 'C':
 				printf("Got control point!\n");
 				c = getc(fd_mapfile);
-				cur_map.controls[i][0] = c;
+				cur_map->controls[i][0] = c;
 				c = getc(fd_mapfile);
-				cur_map.controls[i][0] = cur_map.controls[i][0] + c * 0x100;
+				cur_map->controls[i][0] = cur_map->controls[i][0] + c * 0x100;
 				
 				c = getc(fd_mapfile);
-				cur_map.controls[i][1] = c;
+				cur_map->controls[i][1] = c;
 				c = getc(fd_mapfile);
-				cur_map.controls[i][1] = cur_map.controls[i][1] + c * 0x100;
-				printf("Debug: %i, %i\n", cur_map.controls[i][0], cur_map.controls[i][1]);
+				cur_map->controls[i][1] = cur_map->controls[i][1] + c * 0x100;
+				printf("Debug: %i, %i\n", cur_map->controls[i][0], cur_map->controls[i][1]);
 				i++;
 				break;
 			case 'S':
 				printf("Got a start point!\n");
 				c = getc(fd_mapfile);
-				cur_map.start[j][0] = c;
+				cur_map->start[j][0] = c;
 				c = getc(fd_mapfile);
-				cur_map.start[j][0] = cur_map.start[j][0] + c * 0x100;
+				cur_map->start[j][0] = cur_map->start[j][0] + c * 0x100;
 				
 				c = getc(fd_mapfile);
-				cur_map.start[j][1] = c;
+				cur_map->start[j][1] = c;
 				c = getc(fd_mapfile);
-				cur_map.start[j][1] = cur_map.start[j][1] + c * 0x100;
-				printf("Debuag: %i, %i\n", cur_map.start[j][0], cur_map.start[j][1]);
+				cur_map->start[j][1] = cur_map->start[j][1] + c * 0x100;
+				printf("Debuag: %i, %i\n", cur_map->start[j][0], cur_map->start[j][1]);
 				j++;
 				break;
 			default:
@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
 
 	Map cur_map;
 
-	if (read_mapfile(argv[1]) == -1) {
+	if (read_mapfile(argv[1], &cur_map) == -1) {
 		printf("Error reading map-file!");
 		return 1;
 	}
