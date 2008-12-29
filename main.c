@@ -1,4 +1,5 @@
 #include "muon.h"
+#include "object.h"
 
 void printFatalErr(char *msg) {
 	printf("FATAL ERROR: %s\n", msg);
@@ -14,13 +15,28 @@ int main(int argc, char **argv) {
 	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
 		printFatalErr("SDl_SetVideoMode Failed!");
 
+	Object circle;
+	Object_loadSprite("circle.png", &circle);
+
 	SDL_Event event;
+
+	Timer fps;
 
 	int running = 1;
 	while (running) {
-		SDL_PollEvent(&event);
+		Timer_toggleS_ST(&fps);
+
+		if (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT)
+				running = 0;
+		}
+
+		Object_blitSprite(100, 100, circle, context);
 
 		SDL_Flip(context);
+
+		if (Timer_getTicks(fps) < 1000 / 75)
+			SDL_Delay((1000 / 75) - Timer_getTicks(fps));
 	}
 
 	SDL_Quit();

@@ -33,7 +33,7 @@ void Timer_toggleP_UP(Timer *timer) {
 
 int Timer_getTicks(Timer timer) {
 	if (timer.started == 1) {
-		if (timer.paused = 1) {
+		if (timer.paused == 1) {
 			return timer.p_ticks;
 		} else {
 			return SDL_GetTicks() - timer.s_ticks;
