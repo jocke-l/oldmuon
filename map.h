@@ -5,8 +5,8 @@ typedef struct {
 	int width;
 	int height;
 	int players;
-} map;
-map _Map;
+} Map;
+Map map;
 
 
 int Map_Init();

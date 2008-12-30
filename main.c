@@ -1,6 +1,5 @@
 #include "muon.h"
-#include "object.h"
-#include "map.h"
+
 
 void printFatalErr(char *msg) {
 	printf("FATAL ERROR: %s\n", msg);

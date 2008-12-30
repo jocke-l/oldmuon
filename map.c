@@ -1,7 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "map.h"
-#include "object.h"
+#include "muon.h"
 
 int Map_Init() {
 	object_array_len = 0;

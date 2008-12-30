@@ -1,15 +1,12 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "object.h"
-#include "map.h"
+#include "muon.h"
 
 
 int objectTemplateArray_Init() {
-	object_template_array = malloc((sizeof(Object_Template)) * (7 * _Map.players));
+	object_template_array = malloc((sizeof(Object_Template)) * (7 * map.players));
 	
 	int i;
 	
-	for (i = 0; i < _Map.players; i++) {
+	for (i = 0; i < map.players; i++) {
 	//	object_template_array[0].name = "dummy"
 		object_template_array[0 + 7 * i].max_hp = 0;
 		object_template_array[0 + 7 * i].max_shield = 0;
