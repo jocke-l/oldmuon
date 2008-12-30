@@ -26,7 +26,7 @@ typedef struct {
 } Object_Template;
 
 Object *object_array;
-int object_array_len = 0;
+int object_array_len;
 
 Object_Template *object_template_array;
 

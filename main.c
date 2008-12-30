@@ -1,5 +1,6 @@
 #include "muon.h"
 #include "object.h"
+#include "map.h"
 
 void printFatalErr(char *msg) {
 	printf("FATAL ERROR: %s\n", msg);
@@ -16,12 +17,16 @@ int main(int argc, char **argv) {
 		printFatalErr("SDl_SetVideoMode Failed!");
 
 	Object circle;
-	Object_loadSprite("circle.png", &circle);
+	//Object_loadSprite("circle.png", &circle);
 
 	SDL_Event event;
 
 	Timer fps;
-
+	
+	Map_Init();
+	Map_Load("testmap");
+	Map_Debug();
+	
 	int running = 1;
 	while (running) {
 		Timer_toggleS_ST(&fps);
@@ -31,7 +36,7 @@ int main(int argc, char **argv) {
 				running = 0;
 		}
 
-		Object_blitSprite(100, 100, circle, context);
+		//Object_blitSprite(100, 100, circle, context);
 
 		SDL_Flip(context);
 

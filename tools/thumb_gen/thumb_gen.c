@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "../../muon.h"
+#include "../../object.c"
 #include "../../map.c"
 
 SDL_Surface *loadImage(char *file_name) {

@@ -1,64 +1,71 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "object.h"
+#include "map.h"
+
 
 int objectTemplateArray_Init() {
-	object_template_array = malloc(sizeof(Object_Template) * 7);
+	object_template_array = malloc((sizeof(Object_Template)) * (7 * _Map.players));
+	
+	int i;
+	
+	for (i = 0; i < _Map.players; i++) {
+	//	object_template_array[0].name = "dummy"
+		object_template_array[0 + 7 * i].max_hp = 0;
+		object_template_array[0 + 7 * i].max_shield = 0;
+		object_template_array[0 + 7 * i].attack = 0;
+		object_template_array[0 + 7 * i].los = 0;
+		object_template_array[0 + 7 * i].energy_distr = 0;
+		object_template_array[0 + 7 * i].energy_reqr = 0;
+	
+	//	object_template_array[1].name = "Starting Point"
+		object_template_array[1 + 7 * i].max_hp = 0;
+		object_template_array[1 + 7 * i].max_shield = 0;
+		object_template_array[1 + 7 * i].attack = 0;
+		object_template_array[1 + 7 * i].los = 0;
+		object_template_array[1 + 7 * i].energy_distr = 0;
+		object_template_array[1 + 7 * i].energy_reqr = 0;
+	
+	//	object_template_array[2].name = "Control Point"
+		object_template_array[2 + 7 * i].max_hp = 0;
+		object_template_array[2 + 7 * i].max_shield = 0;
+		object_template_array[2 + 7 * i].attack = 0;
+		object_template_array[2 + 7 * i].los = 0;
+		object_template_array[2 + 7 * i].energy_distr = 0;
+		object_template_array[2 + 7 * i].energy_reqr = 0;
 
-//	object_template_array[0].name = "dummy"
-	object_template_array[0].max_hp = 0;
-	object_template_array[0].max_shield = 0;
-	object_template_array[0].attack = 0;
-	object_template_array[0].los = 0;
-	object_template_array[0].energy_distr = 0;
-	object_template_array[0].energy_reqr = 0;
+	//	object_template_array[3].name = "Generator"
+		object_template_array[3 + 7 * i].max_hp = 500;
+		object_template_array[3 + 7 * i].max_shield = 500;
+		object_template_array[3 + 7 * i].attack = 0;
+		object_template_array[3 + 7 * i].los = 40;
+		object_template_array[3 + 7 * i].energy_distr = 1;
+		object_template_array[3 + 7 * i].energy_reqr = 0;
 
-//	object_template_array[1].name = "Starting Point"
-	object_template_array[1].max_hp = 0;
-	object_template_array[1].max_shield = 0;
-	object_template_array[1].attack = 0;
-	object_template_array[1].los = 0;
-	object_template_array[1].energy_distr = 0;
-	object_template_array[1].energy_reqr = 0;
+	//	object_template_array[4].name = "Repeater"
+		object_template_array[4 + 7 * i].max_hp = 300;
+		object_template_array[4 + 7 * i].max_shield = 200;
+		object_template_array[4 + 7 * i].attack = 0;
+		object_template_array[4 + 7 * i].los = 20;
+		object_template_array[4 + 7 * i].energy_distr = 1;
+		object_template_array[4 + 7 * i].energy_reqr = 1;
 
-//	object_template_array[2].name = "Control Point"
-	object_template_array[2].max_hp = 0;
-	object_template_array[2].max_shield = 0;
-	object_template_array[2].attack = 0;
-	object_template_array[2].los = 0;
-	object_template_array[2].energy_distr = 0;
-	object_template_array[2].energy_reqr = 0;
+	//	object_template_array[5].name = "Scout"
+		object_template_array[5 + 7 * i].max_hp = 100;
+		object_template_array[5 + 7 * i].max_shield = 50;
+		object_template_array[5 + 7 * i].attack = 15;
+		object_template_array[5 + 7 * i].los = 60;
+		object_template_array[5 + 7 * i].energy_distr = 0;
+		object_template_array[5 + 7 * i].energy_reqr = 1;
 
-//	object_template_array[3].name = "Generator"
-	object_template_array[3].max_hp = 500;
-	object_template_array[3].max_shield = 500;
-	object_template_array[3].attack = 0;
-	object_template_array[3].los = 40;
-	object_template_array[3].energy_distr = 1;
-	object_template_array[3].energy_reqr = 0;
-
-//	object_template_array[4].name = "Repeater"
-	object_template_array[4].max_hp = 300;
-	object_template_array[4].max_shield = 200;
-	object_template_array[4].attack = 0;
-	object_template_array[4].los = 20;
-	object_template_array[4].energy_distr = 1;
-	object_template_array[4].energy_reqr = 1;
-
-//	object_template_array[5].name = "Scout"
-	object_template_array[5].max_hp = 100;
-	object_template_array[5].max_shield = 50;
-	object_template_array[5].attack = 15;
-	object_template_array[5].los = 60;
-	object_template_array[5].energy_distr = 0;
-	object_template_array[5].energy_reqr = 1;
-
-//	object_template_array[6].name = "Wall"
-	object_template_array[6].max_hp = 20;
-	object_template_array[6].max_shield = 200;
-	object_template_array[6].attack = 0;
-	object_template_array[6].los = 5;
-	object_template_array[6].energy_distr = 0;
-	object_template_array[6].energy_reqr = 1;
-
+	//	object_template_array[6].name = "Wall"
+		object_template_array[6 + 7 * i].max_hp = 20;
+		object_template_array[6 + 7 * i].max_shield = 200;
+		object_template_array[6 + 7 * i].attack = 0;
+		object_template_array[6 + 7 * i].los = 5;
+		object_template_array[6 + 7 * i].energy_distr = 0;
+		object_template_array[6 + 7 * i].energy_reqr = 1;
+	}
 	return 0;
 }
 

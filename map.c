@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "map.h"
-#include "object.c"
+#include "object.h"
 
 int Map_Init() {
 	object_array = malloc(sizeof(Object));
@@ -91,18 +91,16 @@ int Map_Load(char *file) {
 	return 0;
 }
 
-/*
-int main(int argc, char **argv)
+
+int Map_Debug()
 {
 	int i;
-	Map_Init();
-	Map_Load("map2");
 	objectArray_Add(1337, 1000, 500, 3);
-	objectArray_Del(1);
+	objectArray_Del(2);
 	
 	for (i=0; object_array[i].type != 0; i++) {
 		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
 	}
 	return 0;
 }
-*/
+
