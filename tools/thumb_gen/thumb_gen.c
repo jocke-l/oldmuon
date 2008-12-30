@@ -1,19 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <SDL/SDL.h>
+#include "../../map.h"
 
 
-typedef struct {
-	int width;
-	int height;
-
-	int start[2][2];
-	int controls[5][2];
-} Map;
-
-
-
-int read_mapfile(char *file, Map *cur_map) {	
+int mapLoad(char *file, Map *cur_map) {	
 	char tempc, c;
 	int i = 0, j = 0;
 	
@@ -106,7 +97,7 @@ int main(int argc, char **argv) {
 
 	Map cur_map;
 
-	if (read_mapfile(argv[1], &cur_map) == -1) {
+	if (mapLoad(argv[1], &cur_map) == -1) {
 		printf("Error reading map-file!");
 		return 1;
 	}
