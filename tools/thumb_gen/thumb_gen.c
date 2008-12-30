@@ -1,71 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-#include <SDL/SDL.h>
-#include "../../map.h"
-
-
-int mapLoad(char *file, Map *cur_map) {	
-	char tempc, c;
-	int i = 0, j = 0;
-	
-	printf("Trying to open file %s...\n", file);
-	
-	FILE *fd_mapfile;
-	if ((fd_mapfile = fopen(file, "r")) == NULL) {
-		printf("MAJOR PHAILURE!\nFile %s could _NOT_ be opened for reading!\n", file);
-		return -1;
-	}
-	
-	while ((tempc = fgetc(fd_mapfile)) != EOF) {
-		switch (tempc) {
-			case 'D':
-				printf("Got dimension type!\n");
-				c = getc(fd_mapfile);
-				cur_map->width = c;
-				c = getc(fd_mapfile);
-				cur_map->width = cur_map->width + c * 0x100;
-				c = getc(fd_mapfile);
-				cur_map->height = c;
-				c = getc(fd_mapfile);
-				cur_map->height = cur_map->height + c * 0x100;
-				break;
-			case 'C':
-				printf("Got control point!\n");
-				c = getc(fd_mapfile);
-				cur_map->controls[i][0] = c;
-				c = getc(fd_mapfile);
-				cur_map->controls[i][0] = cur_map->controls[i][0] + c * 0x100;
-				
-				c = getc(fd_mapfile);
-				cur_map->controls[i][1] = c;
-				c = getc(fd_mapfile);
-				cur_map->controls[i][1] = cur_map->controls[i][1] + c * 0x100;
-				printf("Debug: %i, %i\n", cur_map->controls[i][0], cur_map->controls[i][1]);
-				i++;
-				break;
-			case 'S':
-				printf("Got a start point!\n");
-				c = getc(fd_mapfile);
-				cur_map->start[j][0] = c;
-				c = getc(fd_mapfile);
-				cur_map->start[j][0] = cur_map->start[j][0] + c * 0x100;
-				
-				c = getc(fd_mapfile);
-				cur_map->start[j][1] = c;
-				c = getc(fd_mapfile);
-				cur_map->start[j][1] = cur_map->start[j][1] + c * 0x100;
-				printf("Debuag: %i, %i\n", cur_map->start[j][0], cur_map->start[j][1]);
-				j++;
-				break;
-			default:
-				printf("Unknown type!\n");
-				break;
-		}
-	}
-	
-	fclose(fd_mapfile);
-	return 0;
-}
+#include "../../muon.h"
+#include "../../map.c"
 
 SDL_Surface *loadImage(char *file_name) {
 	SDL_Surface *temp_image = NULL;
@@ -95,32 +31,36 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	Map cur_map;
-
-	if (mapLoad(argv[1], &cur_map) == -1) {
-		printf("Error reading map-file!");
-		return 1;
-	}
-
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 		printf("Failed to initialise SDL.");
 		return 1;
 	}
 	SDL_Surface *screen = NULL;
 	SDL_Surface *blip = NULL;
-	screen = SDL_SetVideoMode(cur_map.width, cur_map.height, 32, SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(640, 640, 32, SDL_SWSURFACE);
 	if (screen == NULL) {
 		printf("Failed to set video mode.");
 		return 1;
 	}
 
+	Map_Init();
+	Map_Load(argv[1]);
+
 	int i;
-	blip = loadImage("stpoint.bmp");
-	for (i = 0; i <= 1; i++)
-		surfaceBlit(cur_map.start[i][0], cur_map.start[i][1], blip, screen);
-	blip = loadImage("ctpoint.bmp");
-	for (i = 0; i <= 4; i++)
-		surfaceBlit(cur_map.controls[i][0], cur_map.controls[i][1], blip, screen);
+	for (i=0; object_array[i].type != 0; i++) {
+		switch (object_array[i].type) {
+			case 1:
+				blip = loadImage("stpoint.bmp");
+				surfaceBlit(object_array[i].x, object_array[i].y, blip, screen);
+				break;
+			case 2:
+				blip = loadImage("ctpoint.bmp");
+				surfaceBlit(object_array[i].x, object_array[i].y, blip, screen);
+				break;
+			default:
+				break;
+		}
+	}
 	SDL_FreeSurface(blip);
 
 	if (SDL_Flip(screen) == -1) {
