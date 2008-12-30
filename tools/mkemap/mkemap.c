@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-	int i, j;
-	char c, d, e, f, g;
+	int i;
+	char c;
 	if (argc != 2) {
 		return -1;
 	}
@@ -18,28 +18,31 @@ int main(int argc, char **argv) {
 		printf("Enter type to add: ");
 		scanf("%c", &c);
 		if (c != 'Q') {
+			putc(c, filep);
+			
 			printf("X: ");
 			scanf("%i", &i);
-			printf("Y: ");
-			scanf("%i", &j);
+			c = i & 0xFF;
 			putc(c, filep);
-			d = i & 0xFF;
-			putc(d, filep);
 			i = i & 0xFF00;
-			e = i / 0x100;
-			putc(e, filep);
-			f = j & 0xFF;
-			putc(f, filep);
-			j = j & 0xFF00;
-			g = j / 0x100;
-			putc(g, filep);
+			c = i / 0x100;
+			putc(c, filep);
+			
+			printf("Y: ");
+			scanf("%i", &i);
+			
+			
+			c = i & 0xFF;
+			putc(c, filep);
+			i = i & 0xFF00;
+			c = i / 0x100;
+			putc(c, filep);
 			scanf("%c", &c);
+			i = 0;
 		} else {
 			i = 1;
 		}
 	}
-	c = 0xFF;
-	putc(c, filep);
 	fclose(filep);
 	return 0;
 }
