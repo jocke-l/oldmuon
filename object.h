@@ -7,6 +7,10 @@ typedef struct {
 	int x;
 	int y;
 
+	int type;
+	int hp;
+	int owner;
+
 	SDL_Surface *sprite;
 } Object;
 
