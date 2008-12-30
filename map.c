@@ -77,6 +77,9 @@ int Map_Load(char *file) {
 				
 				object_array[j].owner = object_array[i].owner;
 				object_array[j].type = 0x3;
+
+				object_array[j].hp = object_template_array[object_array[j].type].max_hp;
+				object_array[j].shield = object_template_array[object_array[j].type].max_shield;
 				break;
 			default: 
 				break;
@@ -88,17 +91,17 @@ int Map_Load(char *file) {
 }
 
 /*
-**int main(int argc, char **argv)
-**{
-**	int i;
-**	Map_Init();
-**	Map_Load("map2");
-**	objectArray_Add(1337, 1000, 500, 3);
-**	objectArray_Del(1);
-**	
-**	for (i=0; object_array[i].type != 0; i++) {
-**		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
-**	}
-**	return 0;
-**}
+int main(int argc, char **argv)
+{
+	int i;
+	Map_Init();
+	Map_Load("map2");
+	objectArray_Add(1337, 1000, 500, 3);
+	objectArray_Del(1);
+	
+	for (i=0; object_array[i].type != 0; i++) {
+		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
+	}
+	return 0;
+}
 */
