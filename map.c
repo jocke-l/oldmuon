@@ -1,26 +1,35 @@
-#include "muon.h"
-#include "object.h"
-#include "dynarr.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "object.c"
 
-int loadMap(char *file) {
+int Map_Init() {
+	object_array = malloc(sizeof(Object));
+	object_array[0].x = 0;
+	object_array[0].y = 0;
+	object_array[0].hp = 0;
+	object_array[0].type = 0;
+	object_array[0].owner = 0;
+
+	return 0;
+}
+
+int Map_Load(char *file) {
 	char tempc, c;
 	int i = 0, j = 0, k = 1;
 	
 	printf("Trying to open file %s...\n", file);
 	
-	FILE *fd_mapfile;
-	if ((fd_mapfile = fopen(file, "r")) == NULL) {
-		printf("ERROR: loadMap failed: %s", file);
+	FILE *Mapfile;
+	if ((Mapfile = fopen(file, "r")) == NULL) {
+		printf("Error: Map_Load: Could not load file %s!\n", file);
 		return -1;
 	}
-
-	DynArr object_arr;
-	DynArr_initArray(&object_arr, sizeof(Object));
 	
-	while ((tempc = fgetc(fd_mapfile)) != EOF) {
+	while ((tempc = fgetc(Mapfile)) != EOF) {
 		switch (tempc) {
+			/*
 			case 'D':
-				/*
+
 				c = getc(fd_mapfile);
 				cur_map->width = c;
 				c = getc(fd_mapfile);
@@ -28,67 +37,68 @@ int loadMap(char *file) {
 				c = getc(fd_mapfile);
 				cur_map->height = c;
 				c = getc(fd_mapfile);
-				cur_map->height = cur_map->height + c * 0x100; */
+				cur_map->height = cur_map->height + c * 0x100;
 				break;
-
+			*/
 			case 'C':
-				i = DynArr_addElement(&object_arr);
-
-				((Object) object_arr)[i].type = 0x2;
-
-				object[i].x = getc(fd_mapfile);
-				c = getc(fd_mapfile);
-				object[i].x = object[i].x + c * 0x100;
-
-				object[i].y = getc(fd_mapfile);
-				c = getc(fd_mapfile);
-				object[i].y = object[i].y + c * 0x100;
-
-				object_arr.array[i] = (void *) object;
-
+				i = objectArray_Grow();
+				
+				object_array[i].x = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].x = object_array[i].x + c * 0x100;
+				
+				object_array[i].y = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].y = object_array[i].y + c * 0x100;
+				
+				object_array[i].type = 0x2;
 				break;
-
-			case 'G':
-				j = DynArr_addElement(&object_arr);
-				object = (Object) object_arr.array[i];
-
-				object[j].x = object[i].x;
-				object[j].y = object[i].y;
-
-				object[j].owner = k;
-
-				object[j].type = 0x3;
-
-				object_arr.array[j] = (void *) object;
-
-				break;
-
 			case 'S':
-				i = DynArr_addElement(&object_arr);
-				object = (Object) object_arr.array[i];
-
-				Object[i].Type = 0x1;
-
-				Object[i].x = getc(fd_mapfile);
-				c = getc(fd_mapfile);
-				Object[i].x = Object[i].x + c * 0x100;
-
-				Object[i].y = getc(fd_mapfile);
-				c = getc(fd_mapfile);
-				Object[i].y = Object[i].y + c * 0x100;
-
-				Object[i].Owner = k;
+				i = objectArray_Grow();
+				
+				object_array[i].x = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].x = object_array[i].x + c * 0x100;
+				
+				object_array[i].y = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].y = object_array[i].y + c * 0x100;
+				
+				object_array[i].type = 0x1;
+				
+				object_array[i].owner = k;
 				k++;
-
-				object_arr.array[i] = (void *) object;
-
 				break;
-
+			case 'G':
+				j = objectArray_Grow();
+				
+				object_array[j].x = object_array[i].x;
+				object_array[j].y = object_array[i].y;
+				
+				object_array[j].owner = object_array[i].owner;
+				object_array[j].type = 0x3;
+				break;
 			default: 
 				break;
 		}
 	}
 	
-	fclose(fd_mapfile);
+	fclose(Mapfile);
 	return 0;
 }
+
+/*
+**int main(int argc, char **argv)
+**{
+**	int i;
+**	Map_Init();
+**	Map_Load("map2");
+**	objectArray_Add(1337, 1000, 500, 3);
+**	objectArray_Del(1);
+**	
+**	for (i=0; object_array[i].type != 0; i++) {
+**		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
+**	}
+**	return 0;
+**}
+*/
