@@ -4,6 +4,7 @@
 #include "object.h"
 
 int Map_Init() {
+	object_array_len = 0;
 	object_array = malloc(sizeof(Object));
 	object_array[0].x = 0;
 	object_array[0].y = 0;
@@ -96,7 +97,7 @@ int Map_Debug()
 {
 	int i;
 	objectArray_Add(1337, 1000, 500, 3);
-	objectArray_Del(2);
+	objectArray_Del(0);
 	
 	for (i=0; object_array[i].type != 0; i++) {
 		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
