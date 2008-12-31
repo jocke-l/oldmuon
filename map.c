@@ -95,8 +95,7 @@ int Map_unload() {
 	return 0;
 }
 
-int Map_debug()
-{
+int Map_debug() {
 	int i;
 	objectArray_Add(1337, 1000, 500, 3);
 	objectArray_Del(0);
