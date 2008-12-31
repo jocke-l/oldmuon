@@ -5,5 +5,6 @@ SDL_Surface **array;
 
 int loadSprites();
 void drawSprite(Object);
+void drawGrid();
 
 #endif

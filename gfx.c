@@ -2,7 +2,7 @@
 
 int loadSprites() {
 	char filename[8][30] = {
-		"0",
+		"data/gfx/nothing.png",
 		"data/gfx/generator.png",
 		"data/gfx/control.png",
 		"data/gfx/generator.png",
@@ -43,4 +43,18 @@ void drawSprite(Object object) {
 	SDL_BlitSurface(array[object.type], NULL, context, &rect);
 	return;
 }
-	
+
+void drawGrid() {
+	int i, j;
+	SDL_Rect grid;
+	for (i = 0; i < map.height; i++) {
+		for (j = 0; j < map.width; j++) {
+			grid.x = j * 32 - map.camx;
+			grid.y = i * 32 - map.camy;
+			grid.w = 32;
+			grid.h = 32;
+			SDL_BlitSurface(array[0], NULL, context, &grid);
+		}
+	}
+	return;
+}

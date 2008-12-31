@@ -45,9 +45,10 @@ int main(int argc, char **argv) {
 
 		if (event.type == SDL_QUIT)
 			running = 0;
-
+		
 		cameraControl();
-
+		
+		drawGrid();
 		objectDrawAll();
 		drawHud();
 
