@@ -1,6 +1,5 @@
 #include "muon.h"
 
-
 int objectTemplateArray_Init() {
 	object_template_array = malloc((sizeof(Object_Template)));
 	
@@ -132,4 +131,11 @@ int objectArray_Del(int id) {
 	}
 	objectArray_Shrink();
 	return 0;
+}
+
+void objectDrawAll() {
+	int i;
+	for (i = 0; object_array[i].type != 0; i++) {
+		drawSprite(object_array[i]);
+	}
 }

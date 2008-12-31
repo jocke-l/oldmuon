@@ -5,11 +5,13 @@
 #include <SDL/SDL_image.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "timer.h"
 #include "object.h"
 #include "map.h"
+#include "gfx.h"
 
-void printFatalErr(char *);
+SDL_Surface *context;
 
 #endif

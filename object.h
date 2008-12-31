@@ -36,5 +36,6 @@ int objectArray_Grow();
 int objectArray_Shrink();
 int objectArray_Add();
 int objectArray_Del();
+void objectDrawAll();
 
 #endif

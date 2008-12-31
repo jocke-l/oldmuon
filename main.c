@@ -1,32 +1,27 @@
 #include "muon.h"
 
-
-void printFatalErr(char *msg) {
-	printf("FATAL ERROR: %s\n", msg);
-	exit(0);
-}
-
 int main(int argc, char **argv) {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-		printFatalErr("SDL_Init Failed!");
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+		printf("SDL_Init Failed!");
+		return -1;
+	}
 
-	SDL_Surface *context;
+
 	SDL_WM_SetCaption("Muon", NULL);
-	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)
-		printFatalErr("SDl_SetVideoMode Failed!");
+	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
+		printf("SDL_SetVideoMode Failed!");
+		return -1;
+	}
+	
+	Map_init();
+	Map_load("data/maps/testmap");
+	Map_debug();
+	Map_unload();
 
-	Object circle;
-	//Object_loadSprite("circle.png", &circle);
+	Timer fps;
 
 	SDL_Event event;
 
-	Timer fps;
-	
-	Map_init();
-	Map_load("testmap");
-	Map_debug();
-	Map_unload();
-	
 	int running = 1;
 	while (running) {
 		Timer_toggleS_ST(&fps);
@@ -36,7 +31,7 @@ int main(int argc, char **argv) {
 				running = 0;
 		}
 
-		//Object_blitSprite(100, 100, circle, context);
+		objectDrawAll();
 
 		SDL_Flip(context);
 
