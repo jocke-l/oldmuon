@@ -35,6 +35,7 @@ int Map_load(char *file) {
 				map.height = c;
 				c = getc(Mapfile);
 				map.height = map.height + c * 0x100;
+				c = getc(Mapfile);
 				break;
 			case 'C':
 				i = objectArray_Grow();
@@ -46,6 +47,7 @@ int Map_load(char *file) {
 				object_array[i].y = getc(Mapfile);
 				c = getc(Mapfile);
 				object_array[i].y = object_array[i].y + c * 0x100;
+				object_array[i].owner = getc(Mapfile);
 				
 				object_array[i].type = 0x2;
 				break;
@@ -62,27 +64,34 @@ int Map_load(char *file) {
 				
 				object_array[i].type = 0x1;
 				
-				object_array[i].owner = k;
+				object_array[i].owner = getc(Mapfile);
 
 //				if (map.gamemode == 1) {
 //					objectArray_Add(3, object_array[i].x, object_array[i].y, k);
 //				}
 
-				printf("Debug!\n");
 				k++;
 				break;
 
-/*			case 'G':
-				j = objectArray_Grow();
+			case 'G':
+				i = objectArray_Grow();
 				
-				object_array[j].x = object_array[i].x;
-				object_array[j].y = object_array[i].y;
-				object_array[j].owner = object_array[i].owner;
-				object_array[j].type = 0x3;
-				object_array[j].hp = object_template_array[object_array[j].type].max_hp;
-				object_array[j].shield = object_template_array[object_array[j].type].max_shield;
+				object_array[i].x = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].x = object_array[i].x + c * 0x100;
+				
+				object_array[i].x = getc(Mapfile);
+				c = getc(Mapfile);
+				object_array[i].x = object_array[i].x + c * 0x100;
+				
+				object_array[i].type = 0x3;
+				
+				object_array[i].owner = getc(Mapfile);
+				
+				object_array[i].hp = object_template_array[object_array[i].type].max_hp;
+				object_array[i].shield = object_template_array[object_array[i].type].max_shield;
 				break;
-*/
+
 			default: 
 				break;
 		}

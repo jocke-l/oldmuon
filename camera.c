@@ -10,7 +10,7 @@ void cameraControl() {
 	
 
 	if (keys[SDLK_DOWN]) 
-		if(map.camy < map.height + map.windh / 2) 
+		if(map.camy < map.height * 32 - map.windh / 2) 
 			map.camy += 5;
 	
 
@@ -20,6 +20,6 @@ void cameraControl() {
 
 
 	if (keys[SDLK_RIGHT]) 
-		if(map.camx < map.width + map.windw / 2)
+		if(map.camx < map.width * 32 - map.windw / 2)
 			map.camx += 5;
 }

@@ -3,7 +3,7 @@
 int loadSprites() {
 	char filename[8][30] = {
 		"0",
-		"data/gfx/control.png",
+		"data/gfx/generator.png",
 		"data/gfx/control.png",
 		"data/gfx/generator.png",
 		"data/gfx/repeat.png",
@@ -40,7 +40,6 @@ void drawSprite(Object object) {
 	rect.y = (object.y * 32) - map.camy;
 	rect.w = 32;
 	rect.h = 32;
-	printf("Moo\n");
 	SDL_BlitSurface(array[object.type], NULL, context, &rect);
 	return;
 }
