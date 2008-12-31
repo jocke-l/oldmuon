@@ -15,8 +15,10 @@ int main(int argc, char **argv) {
 	
 	Map_init();
 	Map_load("data/maps/testmap");
-	Map_debug();
-	Map_unload();
+	//Map_debug();
+	//Map_unload();
+	
+	loadSprites();
 
 	Timer fps;
 

@@ -97,8 +97,8 @@ int Map_unload() {
 
 int Map_debug() {
 	int i;
-	objectArray_Add(1337, 1000, 500, 3);
-	objectArray_Del(0);
+	//objectArray_Add(1337, 1000, 500, 3);
+	//objectArray_Del(0);
 	
 	for (i=0; object_array[i].type != 0; i++) {
 		printf("Object type %i at X: %i, Y: %i with owner %i\n", object_array[i].type, object_array[i].x, object_array[i].y, object_array[i].owner);
