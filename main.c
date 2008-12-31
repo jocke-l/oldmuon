@@ -17,10 +17,14 @@ int main(int argc, char **argv) {
 	}
 	
 	objectTemplateArray_Init();
+
+	map.gamemode = 1;
 	
 	Map_init();
-	objectArray_Add(3, 1, 1, 1);
-	objectArray_Add(3, 5, 5, 2);
+	objectArray_Add(3, 0, 0, 1);
+	objectArray_Add(3, 0, map.height, 2);
+	objectArray_Add(3, map.width, 0, 3);
+	objectArray_Add(3, map.width, map.height, 4);
 	//Map_load("data/maps/testmap");
 	//Map_unload();
 	

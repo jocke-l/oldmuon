@@ -14,7 +14,7 @@ int Map_init() {
 
 int Map_load(char *file) {
 	char tempc, c;
-	int i = 0, j = 0, k = 1;
+	int i = 0, k = 1;
 	
 	printf("Trying to open file %s...\n", file);
 	
@@ -26,9 +26,7 @@ int Map_load(char *file) {
 	
 	while ((tempc = fgetc(Mapfile)) != EOF) {
 		switch (tempc) {
-		
 			case 'D':
-
 				c = getc(Mapfile);
 				map.width = c;
 				c = getc(Mapfile);
@@ -38,7 +36,6 @@ int Map_load(char *file) {
 				c = getc(Mapfile);
 				map.height = map.height + c * 0x100;
 				break;
-			
 			case 'C':
 				i = objectArray_Grow();
 				
@@ -66,10 +63,16 @@ int Map_load(char *file) {
 				object_array[i].type = 0x1;
 				
 				object_array[i].owner = k;
+
+//				if (map.gamemode == 1) {
+//					objectArray_Add(3, object_array[i].x, object_array[i].y, k);
+//				}
+
 				printf("Debug!\n");
 				k++;
 				break;
-			case 'G':
+
+/*			case 'G':
 				j = objectArray_Grow();
 				
 				object_array[j].x = object_array[i].x;
@@ -79,6 +82,7 @@ int Map_load(char *file) {
 				object_array[j].hp = object_template_array[object_array[j].type].max_hp;
 				object_array[j].shield = object_template_array[object_array[j].type].max_shield;
 				break;
+*/
 			default: 
 				break;
 		}
