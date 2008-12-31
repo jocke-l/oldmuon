@@ -6,9 +6,12 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
+	windw = 640;
+	windh = 480;
+
 
 	SDL_WM_SetCaption("Muon", NULL);
-	if ((context = SDL_SetVideoMode(640, 480, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
+	if ((context = SDL_SetVideoMode(windw, windh, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
 		printf("SDL_SetVideoMode Failed!");
 		return -1;
 	}
@@ -22,16 +25,16 @@ int main(int argc, char **argv) {
 
 	Timer fps;
 
-	SDL_Event event;
-
 	int running = 1;
 	while (running) {
 		Timer_toggleS_ST(&fps);
 
-		if (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT)
-				running = 0;
-		}
+		SDL_PollEvent(&event);
+
+		if (event.type == SDL_QUIT)
+			running = 0;
+
+		cameraControl();
 
 		objectDrawAll();
 
@@ -39,6 +42,8 @@ int main(int argc, char **argv) {
 
 		if (Timer_getTicks(fps) < 1000 / 75)
 			SDL_Delay((1000 / 75) - Timer_getTicks(fps));
+
+		SDL_FillRect(context, &context->clip_rect, SDL_MapRGB(context->format, 0x00, 0x00, 0x00));
 	}
 
 	SDL_Quit();

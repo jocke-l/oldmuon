@@ -11,7 +11,12 @@
 #include "object.h"
 #include "map.h"
 #include "gfx.h"
+#include "camera.h"
 
 SDL_Surface *context;
+SDL_Event event;
+
+int windw;
+int windh;
 
 #endif

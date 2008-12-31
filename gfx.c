@@ -36,8 +36,8 @@ int loadSprites() {
 
 void drawSprite(Object object) {
 	SDL_Rect rect;
-	rect.x = object.x;
-	rect.y = object.y;
+	rect.x = (object.x * 32) - camera.x;
+	rect.y = (object.y * 32) - camera.y;
 	rect.w = array[object.type]->w;
 	rect.h = array[object.type]->h;
 
