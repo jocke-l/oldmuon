@@ -1,6 +1,6 @@
 #include "muon.h"
 
-int Map_Init() {
+int Map_init() {
 	object_array_len = 0;
 	object_array = malloc(sizeof(Object));
 	object_array[0].x = 0;
@@ -12,7 +12,7 @@ int Map_Init() {
 	return 0;
 }
 
-int Map_Load(char *file) {
+int Map_load(char *file) {
 	char tempc, c;
 	int i = 0, j = 0, k = 1;
 	
@@ -89,8 +89,13 @@ int Map_Load(char *file) {
 	return 0;
 }
 
+int Map_unload() {
+	free(object_array);
+	object_array = NULL;
+	return 0;
+}
 
-int Map_Debug()
+int Map_debug()
 {
 	int i;
 	objectArray_Add(1337, 1000, 500, 3);

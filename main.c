@@ -22,9 +22,10 @@ int main(int argc, char **argv) {
 
 	Timer fps;
 	
-	Map_Init();
-	Map_Load("testmap");
-	Map_Debug();
+	Map_init();
+	Map_load("testmap");
+	Map_debug();
+	Map_unload();
 	
 	int running = 1;
 	while (running) {
