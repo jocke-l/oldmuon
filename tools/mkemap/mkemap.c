@@ -37,6 +37,12 @@ int main(int argc, char **argv) {
 			i = i & 0xFF00;
 			c = i / 0x100;
 			putc(c, filep);
+			
+			printf("Attrib: ");
+			scanf("%i", &i);
+			c = i & 0xFF;
+			putc(c, filep);
+			
 			scanf("%c", &c);
 			i = 0;
 		} else {
