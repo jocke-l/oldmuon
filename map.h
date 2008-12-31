@@ -5,8 +5,8 @@ typedef struct {
 	int width;
 	int height;
 	
-	int curx;
-	int cury;
+	int camx;
+	int camy;
 	
 	int windw;
 	int windh;

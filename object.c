@@ -1,7 +1,7 @@
 #include "muon.h"
 
 int objectTemplateArray_Init() {
-	object_template_array = malloc((sizeof(Object_Template)));
+	object_template_array = malloc((sizeof(Object_Template)) * 9);
 	
 	
 //	object_template_array[0].name = "dummy"

@@ -16,7 +16,5 @@
 SDL_Surface *context;
 SDL_Event event;
 
-int windw;
-int windh;
 
 #endif

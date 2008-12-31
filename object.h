@@ -34,8 +34,8 @@ int objectTemplateArray_Init();
 
 int objectArray_Grow();
 int objectArray_Shrink();
-int objectArray_Add();
-int objectArray_Del();
+int objectArray_Add(int type, int x, int y, int owner);
+int objectArray_Del(int id);
 void objectDrawAll();
 
 #endif

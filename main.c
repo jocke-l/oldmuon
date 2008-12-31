@@ -6,19 +6,22 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
-	windw = 640;
-	windh = 480;
+	map.windw = 640;
+	map.windh = 480;
 
 
 	SDL_WM_SetCaption("Muon", NULL);
-	if ((context = SDL_SetVideoMode(windw, windh, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
+	if ((context = SDL_SetVideoMode(map.windw, map.windh, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
 		printf("SDL_SetVideoMode Failed!");
 		return -1;
 	}
 	
+	objectTemplateArray_Init();
+	
 	Map_init();
-	Map_load("data/maps/testmap");
-	//Map_debug();
+	objectArray_Add(3, 1, 1, 1);
+	objectArray_Add(3, 5, 5, 2);
+	//Map_load("data/maps/testmap");
 	//Map_unload();
 	
 	loadSprites();

@@ -26,19 +26,19 @@ int Map_load(char *file) {
 	
 	while ((tempc = fgetc(Mapfile)) != EOF) {
 		switch (tempc) {
-			/*
+		
 			case 'D':
 
-				c = getc(fd_mapfile);
-				cur_map->width = c;
-				c = getc(fd_mapfile);
-				cur_map->width = cur_map->width + c * 0x100;
-				c = getc(fd_mapfile);
-				cur_map->height = c;
-				c = getc(fd_mapfile);
-				cur_map->height = cur_map->height + c * 0x100;
+				c = getc(Mapfile);
+				map.width = c;
+				c = getc(Mapfile);
+				map.width = map.width + c * 0x100;
+				c = getc(Mapfile);
+				map.height = c;
+				c = getc(Mapfile);
+				map.height = map.height + c * 0x100;
 				break;
-			*/
+			
 			case 'C':
 				i = objectArray_Grow();
 				
@@ -66,6 +66,7 @@ int Map_load(char *file) {
 				object_array[i].type = 0x1;
 				
 				object_array[i].owner = k;
+				printf("Debug!\n");
 				k++;
 				break;
 			case 'G':
@@ -73,10 +74,8 @@ int Map_load(char *file) {
 				
 				object_array[j].x = object_array[i].x;
 				object_array[j].y = object_array[i].y;
-				
 				object_array[j].owner = object_array[i].owner;
 				object_array[j].type = 0x3;
-
 				object_array[j].hp = object_template_array[object_array[j].type].max_hp;
 				object_array[j].shield = object_template_array[object_array[j].type].max_shield;
 				break;
