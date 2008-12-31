@@ -49,13 +49,14 @@ int main(int argc, char **argv) {
 		cameraControl();
 
 		objectDrawAll();
+		drawHud();
 
 		SDL_Flip(context);
 
+		SDL_FillRect(context, &context->clip_rect, SDL_MapRGB(context->format, 0x00, 0x00, 0x00));
+
 		if (Timer_getTicks(fps) < 1000 / 75)
 			SDL_Delay((1000 / 75) - Timer_getTicks(fps));
-
-		SDL_FillRect(context, &context->clip_rect, SDL_MapRGB(context->format, 0x00, 0x00, 0x00));
 	}
 
 	SDL_Quit();

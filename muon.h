@@ -12,6 +12,7 @@
 #include "map.h"
 #include "gfx.h"
 #include "camera.h"
+#include "ui.h"
 
 SDL_Surface *context;
 SDL_Event event;
