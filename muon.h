@@ -17,5 +17,6 @@
 SDL_Surface *context;
 SDL_Event event;
 
+void initEverything();
 
 #endif
