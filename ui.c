@@ -9,12 +9,15 @@ void drawHud() {
 	bg.y = map.windh - (32 + 4);
 
 	SDL_FillRect(context, &bg, SDL_MapRGB(context->format, 0x22, 0x22, 0x22));
+		
+	SDL_BlitSurface(sprite_array[4], NULL, context, &bg);
 
 	int i;
-	for (i = 0; i < 4; i++) {
+	for (i = 5; i < 8; i++) {
 		bg.x += 32 + 4;
 
 		SDL_FillRect(context, &bg, SDL_MapRGB(context->format, 0x22, 0x22, 0x22));
+		SDL_BlitSurface(sprite_array[i], NULL, context, &bg);
 	}
 
 	float scale_factor = 0;

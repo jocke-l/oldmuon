@@ -46,7 +46,7 @@ int loadSprites() {
 	temp = malloc(sizeof(SDL_Surface *) * 10);
 
 	int i;
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 8; i++) {
 		if (strcmp(filename[i], "0")) {
 			temp = realloc(temp, sizeof(SDL_Surface *) * (i + 1));
 			temp[i] = IMG_Load(filename[i]);
@@ -55,10 +55,13 @@ int loadSprites() {
 				printf("ERROR: loadSprites failed: %s", filename[i]);
 				return -1;
 			}
+
+			Uint32 colorkey = SDL_MapRGB(temp[i]->format, 0x00, 0x00, 0x00);
+			SDL_SetColorKey(temp[i], SDL_SRCCOLORKEY, colorkey);
 		}
 	}
 
-	array = temp;
+	sprite_array = temp;
 	temp = NULL;
 
 	return 0;
@@ -70,21 +73,36 @@ void drawSprite(Object object) {
 	rect.y = (object.y * 32) - map.camy;
 	rect.w = 32;
 	rect.h = 32;
-	SDL_BlitSurface(array[object.type], NULL, context, &rect);
+	SDL_BlitSurface(sprite_array[object.type], NULL, context, &rect);
 	return;
 }
 
 void drawGrid() {
 	int i, j;
 	SDL_Rect grid;
+	SDL_Rect temp;
 	for (i = 0; i < map.height; i++) {
 		for (j = 0; j < map.width; j++) {
 			grid.x = j * 32 - map.camx;
 			grid.y = i * 32 - map.camy;
 			grid.w = 32;
 			grid.h = 32;
-			SDL_BlitSurface(array[0], NULL, context, &grid);
+			SDL_BlitSurface(sprite_array[0], NULL, context, &grid);
+
+			temp.x = grid.x;
+			temp.y = 0 - map.camy;
+			temp.w = 32;
+			temp.h = 1;
+
+			SDL_FillRect(context, &temp, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
 		}
+
+		temp.x = 0 - map.camx;
+		temp.y = grid.y;
+		temp.w = 1;
+		temp.h = 32;
+
+		SDL_FillRect(context, &temp, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
 	}
 	return;
 }

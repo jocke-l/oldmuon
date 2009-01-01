@@ -1,6 +1,6 @@
 typedef struct
 {
-	Uint32 color;
+	Uint8 r, g, b;
 	int blost;
 	int brazed;
 	int bbuilt;
