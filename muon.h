@@ -13,6 +13,7 @@
 #include "gfx.h"
 #include "camera.h"
 #include "ui.h"
+#include "player.h"
 
 SDL_Surface *context;
 SDL_Event event;

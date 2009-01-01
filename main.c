@@ -55,5 +55,6 @@ void initEverything()
 {
 	objectTemplateArray_Init();
 	Map_init();
+	initPlayers(2);
 	return;
 }
