@@ -1,5 +1,35 @@
 #include "muon.h"
 
+int drawRectOutlines(SDL_Surface *context, SDL_Rect *rectangle, Uint32 colour_value) {
+	SDL_Rect temprect;
+
+	temprect.x = rectangle->x;
+	temprect.y = rectangle->y;
+	temprect.w = rectangle->w;
+	temprect.h = 1;
+	SDL_FillRect(context, &temprect, colour_value);
+
+	temprect.x = rectangle->x + rectangle->w;
+	temprect.y = rectangle->y;
+	temprect.w = 1;
+	temprect.h = rectangle->h;
+	SDL_FillRect(context, &temprect, colour_value);
+
+	temprect.x = rectangle->x;
+	temprect.y = rectangle->y + rectangle->h;
+	temprect.w = rectangle->w;
+	temprect.h = 1;
+	SDL_FillRect(context, &temprect, colour_value);
+
+	temprect.x = rectangle->x;
+	temprect.y = rectangle->y;
+	temprect.w = 1;
+	temprect.h = rectangle->h;
+	SDL_FillRect(context, &temprect, colour_value);
+
+	return 0;
+}
+
 int loadSprites() {
 	char filename[8][30] = {
 		"data/gfx/nothing.png",

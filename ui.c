@@ -38,7 +38,7 @@ void drawHud() {
 		bg.h = 4;
 
 /*
-		int r, g, b;
+		Uint8 r, g, b;
 		fixa färg här sen :D
 */
 
@@ -50,6 +50,6 @@ void drawHud() {
 	bg.w = map.windw / 32 * scale_factor;
 	bg.h = map.windh / 32 * scale_factor;
 
-	SDL_FillRect(context, &bg, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
+	drawRectOutlines(context, &bg, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
 
 }

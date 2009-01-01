@@ -3,6 +3,7 @@
 
 SDL_Surface **array;
 
+int drawRectOutlines(SDL_Surface *, SDL_Rect *, Uint32);
 int loadSprites();
 void drawSprite(Object);
 void drawGrid();
