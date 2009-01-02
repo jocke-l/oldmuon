@@ -80,9 +80,9 @@ int Map_load(char *file) {
 				c = getc(Mapfile);
 				object_array[i].x = object_array[i].x + c * 0x100;
 				
-				object_array[i].x = getc(Mapfile);
+				object_array[i].y = getc(Mapfile);
 				c = getc(Mapfile);
-				object_array[i].x = object_array[i].x + c * 0x100;
+				object_array[i].y = object_array[i].x + c * 0x100;
 				
 				object_array[i].type = 0x3;
 				
