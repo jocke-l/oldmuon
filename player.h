@@ -1,3 +1,6 @@
+#ifndef _PLAYER_H
+#define _PLAYER_H
+
 typedef struct
 {
 	Uint8 r, g, b;
@@ -10,3 +13,5 @@ typedef struct
 Player *players;
 
 void initPlayers(int no);
+
+#endif

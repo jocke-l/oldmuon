@@ -10,9 +10,10 @@ typedef struct {
 } Timer;
 
 void Timer_init(Timer *);
-void Timer_toggleS_ST(Timer *);
-void Timer_toggleP_UP(Timer *);
+void Timer_S_ST(Timer *, int);
+void Timer_P_UP(Timer *, int);
 int Timer_getTicks(Timer);
 int Timer_checkS_P(Timer, int);
+int Timer_getFPS(Timer);
 
 #endif

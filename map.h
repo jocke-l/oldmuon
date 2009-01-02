@@ -14,6 +14,8 @@ typedef struct {
 	int players;
 
 	int gamemode;
+
+	char wind_title[15];
 } Map;
 Map map;
 

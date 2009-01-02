@@ -39,7 +39,7 @@ int loadSprites() {
 		"data/gfx/repeat.png",
 		"data/gfx/scout.png",
 		"data/gfx/attacker.png",
-		"data/gfx/nothing.png",
+		"data/gfx/wall.png",
 	};
 
 	SDL_Surface **temp;
@@ -47,18 +47,16 @@ int loadSprites() {
 
 	int i;
 	for (i = 0; i < 8; i++) {
-		if (strcmp(filename[i], "0")) {
-			temp = realloc(temp, sizeof(SDL_Surface *) * (i + 1));
-			temp[i] = IMG_Load(filename[i]);
+		temp = realloc(temp, sizeof(SDL_Surface *) * (i + 1));
+		temp[i] = IMG_Load(filename[i]);
 
-			if (temp[i] == NULL) {
-				printf("ERROR: loadSprites failed: %s", filename[i]);
-				return -1;
-			}
-
-			Uint32 colorkey = SDL_MapRGB(temp[i]->format, 0x00, 0x00, 0x00);
-			SDL_SetColorKey(temp[i], SDL_SRCCOLORKEY, colorkey);
+		if (temp[i] == NULL) {
+			printf("ERROR: loadSprites failed: %s", filename[i]);
+			return -1;
 		}
+
+		Uint32 colorkey = SDL_MapRGB(temp[i]->format, 0x00, 0x00, 0x00);
+		SDL_SetColorKey(temp[i], SDL_SRCCOLORKEY, colorkey);
 	}
 
 	sprite_array = temp;

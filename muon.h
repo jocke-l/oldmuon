@@ -14,6 +14,9 @@
 #include "camera.h"
 #include "ui.h"
 #include "player.h"
+#include "font.h"
+
+int frame_per_sec;
 
 SDL_Surface *context;
 SDL_Event event;
