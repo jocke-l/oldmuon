@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 	loadSprites();
 
 	Timer fps;
-
+	
 	int running = 1;
 	while (running) {
 		Timer_S_ST(&fps, 0);
@@ -42,7 +42,8 @@ int main(int argc, char **argv) {
 		SDL_Flip(context);
 
 		SDL_FillRect(context, &context->clip_rect, SDL_MapRGB(context->format, 0x00, 0x00, 0x00));
-
+		
+		
 		if (Timer_getTicks(fps) < 1000 / frame_per_sec)
 			SDL_Delay((1000 / frame_per_sec) - Timer_getTicks(fps));
 
