@@ -57,8 +57,8 @@ void drawHud() {
 		SDL_FillRect(context, &bg, SDL_MapRGB(context->format, rr, gg, bb));
 	}
 
-	bg.x = 4 + map.camx / 32 * scale_factor;
-	bg.y = 4 + map.camy / 32 * scale_factor;
+	bg.x = 4 + map.camx * scale_factor / 32;
+	bg.y = 4 + map.camy * scale_factor / 32;
 	bg.w = map.windw / 32 * scale_factor;
 	bg.h = map.windh / 32 * scale_factor;
 
