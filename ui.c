@@ -34,18 +34,27 @@ void drawHud() {
 
 	SDL_FillRect(context, &bg, SDL_MapRGB(context->format, 0x22, 0x22, 0x22));
 
+	bg.w += 1;
+	bg.h += 1;
+	bg.x -= 1;
+	bg.y -= 1;
+
+	drawRectOutlines(context, &bg, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
+
 	for (i = 0; object_array[i].type != 0; i++) {
 		bg.x = 4 + object_array[i].x * scale_factor;
 		bg.y = 4 + object_array[i].y * scale_factor;
 		bg.w = 4;
 		bg.h = 4;
 
-/*
-		Uint8 r, g, b;
-		fixa färg här sen :D
-*/
 
-		SDL_FillRect(context, &bg, SDL_MapRGB(context->format, 0xFF, 0xFF, 0xFF));
+		Uint8 rr, gg, bb;
+		rr = players[object_array[i].owner].r;
+		gg = players[object_array[i].owner].g;
+		bb = players[object_array[i].owner].b;
+
+
+		SDL_FillRect(context, &bg, SDL_MapRGB(context->format, rr, gg, bb));
 	}
 
 	bg.x = 4 + map.camx / 32 * scale_factor;
