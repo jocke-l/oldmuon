@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 	}
 
 	map.windw = 640;
-	map.windh = 480;
+	map.windh = 380;
 	frame_per_sec = 75;
 
 	if ((context = SDL_SetVideoMode(map.windw, map.windh, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	
 	loadSprites();
 	SDL_Surface *test_text;
-	test_text = makeStringSurface("this is a bitmap font test\nit can handle newlines\nbut no more character\nthan were in the english language\nit can also only handle small characters\nat the moment\nthis can be a good function\nto handle runtime exceptions\nin the game");
+	test_text = makeStringSurface("This is a pretty good bitmap font text :D");
 
 	Timer fps;
 	

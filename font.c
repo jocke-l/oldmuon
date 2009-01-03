@@ -11,23 +11,44 @@ int initFont() {
 }
 
 SDL_Surface *makeStringSurface(char *str) {
-	int surface_w = 640;
-	int surface_h = 480;
-
 	int lines = 0;
 	int rows = 0;
-		
+
+	int i, j = 0;
+	for (i = 0; str[i] != '\0'; i++) {
+		if (str[i] == '\n' || str[i + 1] == '\0') {
+			lines++;
+
+			if (rows > j)
+				j = rows;
+
+			if (str[i + 1] == '\0')
+				j += 2;				
+
+			rows = 0;
+		} else {
+			rows++;
+		}
+	}
+
+	rows = j;		
+	
+	int surface_w = rows * 7;
+	int surface_h = lines * 18;
+	
 	SDL_Surface *surface;
 	surface = SDL_CreateRGBSurface(SDL_SWSURFACE, surface_w, surface_h, 24, 0x00, 0x00, 0x00, 0x00);
 
 	SDL_Rect clip;
-	clip.h = 23;
-	clip.w = 11;
+	clip.h = 18;
+	clip.w = 7;
 	clip.y = 0;
 
-	int i;
+	rows = 0;
+	lines = 0;
+
 	for (i = 0; str[i] != '\0'; i++) {
-		clip.x = clip.w * (str[i] - 97);
+		clip.x = clip.w * (str[i] - 33);
 
 		SDL_Rect rect;
 		if (str[i] == '\n') {
