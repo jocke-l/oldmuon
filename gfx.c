@@ -75,6 +75,16 @@ void drawSprite(Object object) {
 	return;
 }
 
+void drawSurface(int x, int y, SDL_Surface *surface) {
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+	rect.w = surface->w;
+	rect.h = surface->h;
+	SDL_BlitSurface(surface, NULL, context, &rect);
+	return;
+}
+
 void drawGrid() {
 	int i, j;
 	SDL_Rect grid;
