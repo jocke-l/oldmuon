@@ -36,6 +36,9 @@ int objectArray_Grow();
 int objectArray_Shrink();
 int objectArray_Add(int type, int x, int y, int owner);
 int objectArray_Del(int id);
+int objectDrawPoints();
+int objectDrawOwnBuildings();
+int objectDrawEnemy();
 void objectDrawAll();
 
 #endif

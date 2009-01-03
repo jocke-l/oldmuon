@@ -133,6 +133,40 @@ int objectArray_Del(int id) {
 	return 0;
 }
 
+int objectDrawEnemy() {
+	int i, j, k;
+	for (i = 0; object_array[i].type != 0; i++)
+		if ( object_array[i].owner != current_player && object_array[i].x * 32 > map.camx - 32 
+			&& object_array[i].x * 32 < map.camx + map.windw && object_array[i].y * 32 > map.camy - 32 
+			&& object_array[i].y * 32 < map.camy + map.windh )
+			
+			for (j = 0, k = 0; object_array[k].type != 0; k++) 
+				if ( object_array[k].x - object_template_array[object_array[k].type].los * 32 < object_array[i].x 
+				&& object_array[k].x + object_template_array[object_array[k].type].los * 32 > object_array[i].x
+				&& object_array[k].y - object_template_array[object_array[k].type].los * 32 < object_array[i].y
+				&& object_array[k].y + object_template_array[object_array[k].type].los * 32 > object_array[i].y )
+					 drawSprite(object_array[i]);
+	return 0;
+}
+
+int objectDrawOwnBuildings() {
+	int i;
+	for (i = 0; object_array[i].type != 0; i++) {
+		if (object_array[i].owner == current_player)
+			drawSprite(object_array[i]);
+	}
+	return 0;
+}
+
+int objectDrawPoints() {
+	int i;
+	for (i = 0; object_array[i].type != 0; i++)
+		if (object_array[i].type < 3)
+			drawSprite(object_array[i]);
+	
+	return 0;
+}
+
 void objectDrawAll() {
 	int i;
 	for (i = 0; object_array[i].type != 0; i++) {

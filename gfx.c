@@ -33,7 +33,7 @@ int drawRectOutlines(SDL_Surface *context, SDL_Rect *rectangle, Uint32 colour_va
 int loadSprites() {
 	char filename[8][30] = {
 		"data/gfx/nothing.png",
-		"data/gfx/generator.png",
+		"data/gfx/control.png",
 		"data/gfx/control.png",
 		"data/gfx/generator.png",
 		"data/gfx/repeat.png",

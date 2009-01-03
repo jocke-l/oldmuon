@@ -37,7 +37,10 @@ int main(int argc, char **argv) {
 		cameraControl();
 		
 		drawGrid();
-		objectDrawAll();
+		objectDrawPoints();
+		objectDrawOwnBuildings();
+		objectDrawEnemy();
+		//objectDrawAll();
 		drawHud();
 
 		drawSurface(140, 20, test_text);
@@ -57,6 +60,7 @@ int main(int argc, char **argv) {
 }
 
 void initEverything() {
+	current_player = 1;
 	objectTemplateArray_Init();
 	Map_init();
 	initPlayers(2);

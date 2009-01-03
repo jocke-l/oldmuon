@@ -11,6 +11,7 @@ typedef struct
 } Player;
 
 Player *players;
+int current_player;
 
 void initPlayers(int no);
 
