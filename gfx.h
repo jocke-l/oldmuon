@@ -4,11 +4,13 @@
 #include <SDL/SDL.h>
 
 SDL_Surface **sprite_array;
+SDL_Surface *grid;
 
 int drawRectOutlines(SDL_Surface *, SDL_Rect *, Uint32);
 int loadSprites();
 void drawSprite(Object);
 void drawSurface(int, int, SDL_Surface *);
+void makeGrid();
 void drawGrid();
 
 #endif

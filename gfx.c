@@ -85,32 +85,31 @@ void drawSurface(int x, int y, SDL_Surface *surface) {
 	return;
 }
 
-void drawGrid() {
+void makeGrid() {
+	grid = SDL_CreateRGBSurface(SDL_SWSURFACE, map.width + map.windw, map.height + map.windh, 24, 0x00, 0x00, 0x00, 0x00);
+
+	SDL_Rect rect;
+
 	int i, j;
-	SDL_Rect grid;
-	SDL_Rect temp;
-	for (i = 0; i < map.height; i++) {
-		for (j = 0; j < map.width; j++) {
-			grid.x = j * 32 - map.camx;
-			grid.y = i * 32 - map.camy;
-			grid.w = 32;
-			grid.h = 32;
-			SDL_BlitSurface(sprite_array[0], NULL, context, &grid);
+	for (i = map.windw / 2; i < map.width; i++) {
+		for (j = map.windh / 2; j < map.height; j++) {
+			rect.x = i * 32;
+			rect.y = j * 32;
+			rect.w = 32;
+			rect.h = 32;
 
-			temp.x = grid.x;
-			temp.y = 0 - map.camy;
-			temp.w = 32;
-			temp.h = 1;
-
-			SDL_FillRect(context, &temp, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
+			SDL_BlitSurface(sprite_array[0], NULL, grid, &rect);
 		}
-
-		temp.x = 0 - map.camx;
-		temp.y = grid.y;
-		temp.w = 1;
-		temp.h = 32;
-
-		SDL_FillRect(context, &temp, SDL_MapRGB(context->format, 0x77, 0x77, 0x77));
 	}
+}
+
+void drawGrid() {
+	SDL_Rect clip;
+	clip.x = map.camx;
+	clip.y = map.camy;
+	clip.w = clip.x + map.windw;
+	clip.h = clip.y + map.windh;
+
+	SDL_BlitSurface(grid, &clip, context, NULL);
 	return;
 }
