@@ -9,9 +9,11 @@ int main(int argc, char **argv) {
 	}
 
 	/* Init window related integears */
-	map.windw = 640;
-	map.windh = 480;
-	frame_per_sec = 75;
+	//map.windw = 640;
+	//map.windh = 480;
+	//frame_per_sec = 75;
+	
+	fileLoad("conf");
 
 	/* Set up a window */
 	if ((context = SDL_SetVideoMode(map.windw, map.windh, 24, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
@@ -24,7 +26,7 @@ int main(int argc, char **argv) {
 
 	/* Load all data here*/
 	loadSprites();
-	Map_load("data/maps/testmap");
+	fileLoad("data/maps/testmap");
 	makeGrid();
 
 	SDL_Surface *test_text;

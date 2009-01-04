@@ -12,59 +12,59 @@ int Map_init() {
 	return 0;
 }
 
-int Map_load(char *file) {
+int fileLoad(char *file) {
 	char tempc, c;
-	int i = 0, k = 1;
+	int i = 0, k = 1, j = 0;
 	
 	printf("Trying to open file %s...\n", file);
 	
-	FILE *Mapfile;
-	if ((Mapfile = fopen(file, "r")) == NULL) {
-		printf("Error: Map_Load: Could not load file %s!\n", file);
+	FILE *File;
+	if ((File = fopen(file, "r")) == NULL) {
+		printf("Error: fileLoad: Could not load file %s!\n", file);
 		return -1;
 	}
 	
-	while ((tempc = fgetc(Mapfile)) != EOF) {
+	while ((tempc = fgetc(File)) != EOF) {
 		switch (tempc) {
 			case 'D':
-				c = getc(Mapfile);
+				c = getc(File);
 				map.width = c;
-				c = getc(Mapfile);
+				c = getc(File);
 				map.width = map.width + c * 0x100;
-				c = getc(Mapfile);
+				c = getc(File);
 				map.height = c;
-				c = getc(Mapfile);
+				c = getc(File);
 				map.height = map.height + c * 0x100;
-				c = getc(Mapfile);
+				c = getc(File);
 				break;
 			case 'C':
 				i = objectArray_Grow();
 				
-				object_array[i].x = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].x = getc(File);
+				c = getc(File);
 				object_array[i].x = object_array[i].x + c * 0x100;
 				
-				object_array[i].y = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].y = getc(File);
+				c = getc(File);
 				object_array[i].y = object_array[i].y + c * 0x100;
-				object_array[i].owner = getc(Mapfile);
+				object_array[i].owner = getc(File);
 				
 				object_array[i].type = 0x2;
 				break;
 			case 'S':
 				i = objectArray_Grow();
 				
-				object_array[i].x = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].x = getc(File);
+				c = getc(File);
 				object_array[i].x = object_array[i].x + c * 0x100;
 				
-				object_array[i].y = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].y = getc(File);
+				c = getc(File);
 				object_array[i].y = object_array[i].y + c * 0x100;
 				
 				object_array[i].type = 0x1;
 				
-				object_array[i].owner = getc(Mapfile);
+				object_array[i].owner = getc(File);
 
 //				if (map.gamemode == 1) {
 //					objectArray_Add(3, object_array[i].x, object_array[i].y, k);
@@ -76,28 +76,36 @@ int Map_load(char *file) {
 			case 'G':
 				i = objectArray_Grow();
 				
-				object_array[i].x = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].x = getc(File);
+				c = getc(File);
 				object_array[i].x = object_array[i].x + c * 0x100;
 				
-				object_array[i].y = getc(Mapfile);
-				c = getc(Mapfile);
+				object_array[i].y = getc(File);
+				c = getc(File);
 				object_array[i].y = object_array[i].x + c * 0x100;
 				
 				object_array[i].type = 0x3;
 				
-				object_array[i].owner = getc(Mapfile);
+				object_array[i].owner = getc(File);
 				
 				object_array[i].hp = object_template_array[object_array[i].type].max_hp;
 				object_array[i].shield = object_template_array[object_array[i].type].max_shield;
 				break;
-
+			
+			case 'W':
+				map.windw = getc(File);
+				map.windw = j + getc(File) * 0x100;
+				
+				map.windh = getc(File);
+				map.windh = map.windh + getc(File) * 0x100;
+				frame_per_sec = getc(File);
+				break;
 			default: 
 				break;
 		}
 	}
 	
-	fclose(Mapfile);
+	fclose(File);
 	return 0;
 }
 
