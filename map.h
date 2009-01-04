@@ -21,7 +21,7 @@ Map map;
 
 
 int Map_init();
-int Map_load(char *file);
+int fileLoad(char *file);
 int Map_debug();
 int Map_unload();
 
