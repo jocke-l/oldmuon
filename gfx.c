@@ -86,13 +86,13 @@ void drawSurface(int x, int y, SDL_Surface *surface) {
 }
 
 void makeGrid() {
-	grid = SDL_CreateRGBSurface(SDL_SWSURFACE, map.width + map.windw, map.height + map.windh, 24, 0x00, 0x00, 0x00, 0x00);
+	grid = SDL_CreateRGBSurface(SDL_SWSURFACE, map.width * 32, map.height * 32 , 24, 0x00, 0x00, 0x00, 0x00);
 
 	SDL_Rect rect;
 
 	int i, j;
-	for (i = map.windw / 2; i < map.width; i++) {
-		for (j = map.windh / 2; j < map.height; j++) {
+	for (i = 0; i < map.width; i++) {
+		for (j = 0; j < map.height; j++) {
 			rect.x = i * 32;
 			rect.y = j * 32;
 			rect.w = 32;
@@ -101,14 +101,21 @@ void makeGrid() {
 			SDL_BlitSurface(sprite_array[0], NULL, grid, &rect);
 		}
 	}
+
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = map.width * 32;
+	rect.h = map.height * 32;
+
+	drawRectOutlines(grid, &rect, SDL_MapRGB(grid->format, 0x77, 0x77, 0x77));
 }
 
 void drawGrid() {
 	SDL_Rect clip;
 	clip.x = map.camx;
 	clip.y = map.camy;
-	clip.w = clip.x + map.windw;
-	clip.h = clip.y + map.windh;
+	clip.w = map.windw;
+	clip.h = map.windh;
 
 	SDL_BlitSurface(grid, &clip, context, NULL);
 	return;
