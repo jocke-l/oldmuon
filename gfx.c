@@ -17,7 +17,7 @@ int drawRectOutlines(SDL_Surface *context, SDL_Rect *rectangle, Uint32 colour_va
 
 	temprect.x = rectangle->x;
 	temprect.y = rectangle->y + rectangle->h;
-	temprect.w = rectangle->w;
+	temprect.w = rectangle->w + 1;
 	temprect.h = 1;
 	SDL_FillRect(context, &temprect, colour_value);
 

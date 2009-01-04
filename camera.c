@@ -13,7 +13,7 @@ void cameraControl() {
 		if(map.camy > 0 - map.windh / 2) 
 			map.camy -= vel;
 	}
-		
+
 	if (keys[SDLK_DOWN]) {
 		if(map.camy < map.height * 32 - map.windh / 2) 
 			map.camy += vel;
@@ -27,5 +27,5 @@ void cameraControl() {
 	if (keys[SDLK_RIGHT]) {
 		if(map.camx < map.width * 32 - map.windw / 2)
 			map.camx += vel; 
-	}	
+	}
 }

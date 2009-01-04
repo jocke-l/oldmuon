@@ -42,10 +42,13 @@ int main(int argc, char **argv) {
 		SDL_FillRect(context, &context->clip_rect, SDL_MapRGB(context->format, 0x00, 0x00, 0x00));
 
 		/* Do all event handling here */
-		SDL_PollEvent(&event);
-		if (event.type == SDL_QUIT)
-			running = 0;
-		
+		if (SDL_PollEvent(&event)) {
+			uiControl();
+
+			if (event.type == SDL_QUIT)
+				running = 0;
+		}
+
 		cameraControl();
 
 		/* Draw all things here */
