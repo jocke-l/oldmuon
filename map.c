@@ -14,7 +14,7 @@ int Map_init() {
 
 int fileLoad(char *file) {
 	char tempc, c;
-	int i = 0, k = 1, j = 0;
+	int i = 0, k = 1;
 	
 	printf("Trying to open file %s...\n", file);
 	
@@ -94,7 +94,7 @@ int fileLoad(char *file) {
 			
 			case 'W':
 				map.windw = getc(File);
-				map.windw = j + getc(File) * 0x100;
+				map.windw = map.windw + getc(File) * 0x100;
 				
 				map.windh = getc(File);
 				map.windh = map.windh + getc(File) * 0x100;
