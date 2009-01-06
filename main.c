@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 	//map.windh = 480;
 	frame_per_sec = 75;
 	
-	//fileLoad("conf");
+	fileLoad("conf");
 
 	if (glfwOpenWindow(640, 480, 8, 8, 8, 0 ,0 ,0, GLFW_WINDOW) == GL_FALSE) {
 		printf("glfwOpenWindow failed!");
@@ -20,11 +20,11 @@ int main(int argc, char **argv) {
 	}
 
 	/* Init all structs in that function */
-	//initEverything();
+	initEverything();
 
 	/* Load all data here*/
-	//loadSprites();
-	//fileLoad("data/maps/testmap");
+	loadSprites();
+	fileLoad("data/maps/testmap");
 	//makeGrid();
 
 	/*SDL_Surface *test_text;
@@ -41,19 +41,18 @@ int main(int argc, char **argv) {
 		/* Clear Screen */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
+		if (!glfwGetWindowParam(GLFW_OPENED))
 			running = 0;
 
 		//cameraControl();
 
-		/* Draw all things here
-		drawGrid();
+		/* Draw all things here */
+		//drawGrid();
 		objectDrawPoints();
 		objectDrawOwnBuildings();
 		objectDrawEnemy();
 		//objectDrawAll();
-		drawHud();
-		drawSurface(140, 20, test_text);*/
+		//drawHud();
 
 		glfwSwapBuffers();
 
@@ -70,11 +69,11 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-/* Init all structs here
+/* Init all structs here */
 void initEverything() {
-	current_player = 1;
+	//current_player = 1;
 	objectTemplateArray_Init();
 	Map_init();
-	initPlayers(2);
-	initFont();
-}*/
+	//initPlayers(2);
+	//initFont();
+}

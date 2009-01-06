@@ -1,91 +1,52 @@
 #include "muon.h"
 
-int drawRectOutlines(SDL_Surface *context, SDL_Rect *rectangle, Uint32 colour_value) {
-	SDL_Rect temprect;
-
-	temprect.x = rectangle->x;
-	temprect.y = rectangle->y;
-	temprect.w = rectangle->w;
-	temprect.h = 1;
-	SDL_FillRect(context, &temprect, colour_value);
-
-	temprect.x = rectangle->x + rectangle->w;
-	temprect.y = rectangle->y;
-	temprect.w = 1;
-	temprect.h = rectangle->h;
-	SDL_FillRect(context, &temprect, colour_value);
-
-	temprect.x = rectangle->x;
-	temprect.y = rectangle->y + rectangle->h;
-	temprect.w = rectangle->w + 1;
-	temprect.h = 1;
-	SDL_FillRect(context, &temprect, colour_value);
-
-	temprect.x = rectangle->x;
-	temprect.y = rectangle->y;
-	temprect.w = 1;
-	temprect.h = rectangle->h;
-	SDL_FillRect(context, &temprect, colour_value);
-
-	return 0;
-}
-
 int loadSprites() {
 	char filename[8][30] = {
-		"data/gfx/nothing.png",
-		"data/gfx/control.png",
-		"data/gfx/control.png",
-		"data/gfx/generator.png",
-		"data/gfx/repeat.png",
-		"data/gfx/scout.png",
-		"data/gfx/attacker.png",
-		"data/gfx/wall.png",
+		"data/gfx/nothing.tga",
+		"data/gfx/control.tga",
+		"data/gfx/control.tga",
+		"data/gfx/generator.tga",
+		"data/gfx/repeat.tga",
+		"data/gfx/scout.tga",
+		"data/gfx/attacker.tga",
+		"data/gfx/wall.tga"
 	};
 
-	SDL_Surface **temp;
-	temp = malloc(sizeof(SDL_Surface *) * 10);
+	GLuint temp[8];
 
 	int i;
-	for (i = 0; i < 8; i++) {
-		temp = realloc(temp, sizeof(SDL_Surface *) * (i + 1));
-		temp[i] = IMG_Load(filename[i]);
-
-		if (temp[i] == NULL) {
-			printf("ERROR: loadSprites failed: %s", filename[i]);
+	for (i = 0; i < 8; i++) {   
+		glGenTextures(1, (temp + i));
+		glBindTexture(GL_TEXTURE_2D, temp[i]);
+   
+		if (glfwLoadTexture2D(filename[i], GLFW_BUILD_MIPMAPS_BIT | GLFW_ORIGIN_UL_BIT)) {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		} else {
+			printf("loadSprites: failed: %s\n", filename[i]);
 			return -1;
 		}
-
-		Uint32 colorkey = SDL_MapRGB(temp[i]->format, 0x00, 0x00, 0x00);
-		SDL_SetColorKey(temp[i], SDL_SRCCOLORKEY, colorkey);
 	}
 
 	sprite_array = temp;
-	temp = NULL;
 
 	return 0;
 }
 
 void drawSprite(Object object) {
-	SDL_Rect rect;
-	rect.x = (object.x * 32) - map.camx;
-	rect.y = (object.y * 32) - map.camy;
-	rect.w = 32;
-	rect.h = 32;
-	SDL_BlitSurface(sprite_array[object.type], NULL, context, &rect);
-	return;
+	glLoadIdentity();
+	glTranslatef(object.x, object.y, 20);
+	glBegin(GL_QUADS);
+		glVertex2f(0, 0);
+		glVertex2f(32, 0);
+		glVertex2f(0, 32);
+		glVertex2f(32, 32);
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, sprite_array[object.type]);
 }
 
-void drawSurface(int x, int y, SDL_Surface *surface) {
-	SDL_Rect rect;
-	rect.x = x;
-	rect.y = y;
-	rect.w = surface->w;
-	rect.h = surface->h;
-	SDL_BlitSurface(surface, NULL, context, &rect);
-	return;
-}
-
-void makeGrid() {
+/*void makeGrid() {
 	grid = SDL_CreateRGBSurface(SDL_SWSURFACE, map.width * 32, map.height * 32 , 24, 0x00, 0x00, 0x00, 0x00);
 
 	SDL_Rect rect;
@@ -108,9 +69,9 @@ void makeGrid() {
 	rect.h = map.height * 32;
 
 	drawRectOutlines(grid, &rect, SDL_MapRGB(grid->format, 0x77, 0x77, 0x77));
-}
+}*/
 
-void drawGrid() {
+/*void drawGrid() {
 	SDL_Rect clip;
 	clip.x = map.camx;
 	clip.y = map.camy;
@@ -119,4 +80,4 @@ void drawGrid() {
 
 	SDL_BlitSurface(grid, &clip, context, NULL);
 	return;
-}
+}*/

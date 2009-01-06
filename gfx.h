@@ -1,16 +1,14 @@
 #ifndef _GFX_H_
 #define _GFX_H_
 
-#include <SDL/SDL.h>
+#include <GL/glfw.h>
+#include "object.h"
 
-SDL_Surface **sprite_array;
-SDL_Surface *grid;
+GLuint *sprite_array;
 
-int drawRectOutlines(SDL_Surface *, SDL_Rect *, Uint32);
 int loadSprites();
 void drawSprite(Object);
-void drawSurface(int, int, SDL_Surface *);
-void makeGrid();
-void drawGrid();
+//void makeGrid();
+//void drawGrid();
 
 #endif

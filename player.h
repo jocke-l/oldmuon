@@ -3,7 +3,7 @@
 
 typedef struct
 {
-	Uint8 r, g, b;
+	float r, g, b;
 	int blost;
 	int brazed;
 	int bbuilt;
