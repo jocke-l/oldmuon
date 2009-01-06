@@ -1,7 +1,7 @@
 CC = gcc
-LIBS = -lSDL -lSDL_image
+LIBS = -lglfw -lGL -lGLU -lX11 -lXrandr
 
-SOURCE = main.c timer.c object.c map.c gfx.c camera.c ui.c player.c font.c
+SOURCE = main.c timer.c
 
 default:
 	$(CC) -Wall -o muon $(SOURCE) $(LIBS)

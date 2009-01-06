@@ -3,6 +3,8 @@
 
 #include <SDL/SDL.h>
 
+SDL_Rect button[4];
+
 #define BUTTON_REPEATER button[0]
 #define BUTTON_SCOUT button[1]
 #define BUTTON_ATTACKER button[2]
@@ -10,7 +12,6 @@
 
 void drawHud();
 void uiControl();
-void addToQueue(int);
 int isPressed(SDL_Rect);
 
 #endif

@@ -1,8 +1,5 @@
 #include "muon.h"
 
-SDL_Rect button[4];
-int queue_count = 0;
-
 void drawHud() {
 	SDL_Rect rect;
 
@@ -70,26 +67,8 @@ void drawHud() {
 }
 
 void uiControl() {
-	if (isPressed(BUTTON_REPEATER))
-		addToQueue(REPEATER);
-
-	if (isPressed(BUTTON_SCOUT))
-		addToQueue(SCOUT);
-
 	if (isPressed(BUTTON_ATTACKER))
-		addToQueue(ATTACKER);
-
-	if (isPressed(BUTTON_WALL))
-		addToQueue(WALL);
-}
-
-void addToQueue(int type) {
-	if (queue_count < players[current_player].control_points) {
-		queue_count++;
-	}
-}
-
-void processQueue() {
+		printf("Yeh: attacker\n");
 }
 
 int isPressed(SDL_Rect rect) {

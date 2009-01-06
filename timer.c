@@ -1,18 +1,11 @@
 #include "muon.h"
 
-void Timer_init(Timer *timer) {
-	timer->s_ticks = 0;
-	timer->p_ticks = 0;
-	timer->paused = 0;
-	timer->started = 0;
-}
-
 void Timer_S_ST(Timer *timer, int s_st) {
 	if (s_st == 0) {
 		timer->started = 1;
 		timer->paused = 0;
 
-		timer->s_ticks = SDL_GetTicks();
+		timer->s_time = glfwGetTime();
 	} else if (s_st == 1) {
 		timer->started = 0;
 		timer->paused = 0;
@@ -22,21 +15,21 @@ void Timer_S_ST(Timer *timer, int s_st) {
 void Timer_P_UP(Timer *timer, int p_up) {
 	if (p_up == 0) {
 		timer->paused = 1;
-		timer->p_ticks = SDL_GetTicks() - timer->s_ticks;
+		timer->p_time = glfwGetTime() - timer->s_time;
 	} else if (p_up == 1) {
 		timer->paused = 0;
-		timer->s_ticks = SDL_GetTicks() - timer->p_ticks;
+		timer->s_time = glfwGetTime() - timer->p_time;
 
-		timer->p_ticks = 0;
+		timer->p_time = 0;
 	}
 }
 
-int Timer_getTicks(Timer timer) {
+double Timer_getTime(Timer timer) {
 	if (timer.started == 1) {
 		if (timer.paused == 1) {
-			return timer.p_ticks;
+			return timer.p_time;
 		} else {
-			return SDL_GetTicks() - timer.s_ticks;
+			return glfwGetTime() - timer.s_time;
 		}
 	}
 
@@ -55,5 +48,5 @@ int Timer_checkS_P(Timer timer, int s_p) {
 
 int Timer_getFPS(Timer timer) {
 	// Notera att du måste starta om timern precis innan varje frame ritas ut!
-	return 1000 / Timer_getTicks(timer);
+	return 1.0 / Timer_getTime(timer);
 }
