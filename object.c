@@ -109,12 +109,7 @@ int objectArray_Add(int type, int x, int y, int owner) {
 	
 	object_array[i].x = x;
 	object_array[i].y = y;
-	
-	/*
-	Fill in code here to fetch max hp from global object struct
-	object_array[i].hp = 0;
-	*/
-	
+
 	object_array[i].type = type;
 	object_array[i].owner = owner;
 	return 0;

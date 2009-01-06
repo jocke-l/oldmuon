@@ -9,6 +9,8 @@ int Map_init() {
 	object_array[0].type = 0;
 	object_array[0].owner = 0;
 
+	map.control_points = 0;
+
 	return 0;
 }
 
@@ -50,6 +52,8 @@ int fileLoad(char *file) {
 				object_array[i].owner = getc(File);
 				
 				object_array[i].type = 0x2;
+
+				map.control_points++;
 				break;
 			case 'S':
 				i = objectArray_Grow();
@@ -66,9 +70,10 @@ int fileLoad(char *file) {
 				
 				object_array[i].owner = getc(File);
 
-//				if (map.gamemode == 1) {
-//					objectArray_Add(3, object_array[i].x, object_array[i].y, k);
-//				}
+				if (map.gamemode == 1) {
+					map.control_points++;
+					objectArray_Add(3, object_array[i].x, object_array[i].y, k);
+				}
 
 				k++;
 				break;

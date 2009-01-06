@@ -80,9 +80,10 @@ int main(int argc, char **argv) {
 
 /* Init all structs here */
 void initEverything() {
-	current_player = 1;
+	//current_player = 1;
 	objectTemplateArray_Init();
 	Map_init();
+	map.gamemode = 1;
 	initPlayers(2);
 	initFont();
 }

@@ -1,6 +1,11 @@
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+#define REPEATER 0
+#define SCOUT 1
+#define ATTACKER 2
+#define WALL 3
+
 typedef struct {
 	int x;
 	int y;

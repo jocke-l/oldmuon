@@ -12,6 +12,7 @@ typedef struct {
 	int windh;
 	
 	int players;
+	int control_points;
 
 	int gamemode;
 
