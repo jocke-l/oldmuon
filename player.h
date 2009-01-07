@@ -3,7 +3,7 @@
 
 typedef struct
 {
-	float r, g, b;
+	GLbyte r, g, b;
 	int blost;
 	int brazed;
 	int bbuilt;

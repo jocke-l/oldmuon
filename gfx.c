@@ -7,16 +7,16 @@ void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
 	glBegin(GL_LINES);
 		glColor3b(r, g, b);
 
-		glVertex2i(0, 0);
-		glVertex2i(rect.w, 0);
+		glVertex2i(0, 1);
+		glVertex2i(rect.w + 1, 1);
 
 		glVertex2i(0, rect.h);
 		glVertex2i(rect.w, rect.h);
 
-		glVertex2i(0, 0);
+		glVertex2i(0, 1);
 		glVertex2i(0, rect.h);
 
-		glVertex2i(rect.w, 0);
+		glVertex2i(rect.w, 1);
 		glVertex2i(rect.w, rect.h);
 	glEnd();
 }
@@ -98,7 +98,7 @@ void drawGrid() {
 	glTranslatef(0.0f - map.camx, 0.0f - map.camy, 0.0f);
 
 	glBegin(GL_LINES);
-		glColor3b(0x77, 0x77, 0x77);
+		glColor3b(0x55, 0x55, 0x55);
 
 		for (i = 0; i < map.width; i++) {
 			glVertex2i(i * 32, 0);

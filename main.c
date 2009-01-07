@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 		objectDrawOwnBuildings();
 		objectDrawEnemy();
 		//objectDrawAll();
-		//drawHud();
+		drawHud();
 
 		glfwSwapBuffers();
 
@@ -81,6 +81,6 @@ void initEverything() {
 	//current_player = 1;
 	objectTemplateArray_Init();
 	Map_init();
-	//initPlayers(2);
+	initPlayers(2);
 	//initFont();
 }
