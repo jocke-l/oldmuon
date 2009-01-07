@@ -14,13 +14,20 @@ int main(int argc, char **argv) {
 	
 	fileLoad("conf");
 
-	if (glfwOpenWindow(640, 480, 8, 8, 8, 0 ,0 ,0, GLFW_WINDOW) == GL_FALSE) {
+	if (glfwOpenWindow(640, 480, 8, 8, 8, 8 ,0 ,0, GLFW_WINDOW) == GL_FALSE) {
 		printf("glfwOpenWindow failed!");
 		return -1;
 	}
 
 	/* Init all structs in that function */
 	initEverything();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, map.windw, map.windh, 0, 0, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 
 	/* Load all data here*/
 	loadSprites();
@@ -44,10 +51,10 @@ int main(int argc, char **argv) {
 		if (!glfwGetWindowParam(GLFW_OPENED))
 			running = 0;
 
-		//cameraControl();
+		cameraControl();
 
 		/* Draw all things here */
-		//drawGrid();
+		drawGrid();
 		objectDrawPoints();
 		objectDrawOwnBuildings();
 		objectDrawEnemy();

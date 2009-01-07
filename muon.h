@@ -12,7 +12,7 @@
 //#include "object.h"
 #include "map.h"
 #include "gfx.h"
-//#include "camera.h"
+#include "camera.h"
 //#include "ui.h"
 #include "player.h"
 //#include "font.h"

@@ -4,11 +4,19 @@
 #include <GL/glfw.h>
 #include "object.h"
 
+typedef struct {
+	int x;
+	int y;
+
+	int w;
+	int h;
+} Rect;
+
 GLuint *sprite_array;
 
 int loadSprites();
 void drawSprite(Object);
 //void makeGrid();
-//void drawGrid();
+void drawGrid();
 
 #endif

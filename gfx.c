@@ -1,5 +1,40 @@
 #include "muon.h"
 
+void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
+	glLoadIdentity();
+	glTranslatef(rect.x, rect.y, 0.0f);
+
+	glBegin(GL_LINES);
+		glColor3b(r, g, b);
+
+		glVertex2i(0, 0);
+		glVertex2i(rect.w, 0);
+
+		glVertex2i(0, rect.h);
+		glVertex2i(rect.w, rect.h);
+
+		glVertex2i(0, 0);
+		glVertex2i(0, rect.h);
+
+		glVertex2i(rect.w, 0);
+		glVertex2i(rect.w, rect.h);
+	glEnd();
+}
+
+void drawRect(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
+	glLoadIdentity();
+	glTranslatef(rect.x, rect.y, 0.0f);
+
+	glBegin(GL_QUADS);
+		glColor3b(r, g, b);
+
+		glVertex2i(0, 0);
+		glVertex2i(rect.w, 0);
+		glVertex2i(rect.w, rect.h);
+		glVertex2i(0, rect.h);
+	glEnd();
+}
+
 int loadSprites() {
 	char filename[8][30] = {
 		"data/gfx/nothing.tga",
@@ -12,72 +47,72 @@ int loadSprites() {
 		"data/gfx/wall.tga"
 	};
 
-	GLuint temp[8];
+	GLFWimage sprite;
+	GLuint array[8];
 
 	int i;
-	for (i = 0; i < 8; i++) {   
-		glGenTextures(1, (temp + i));
-		glBindTexture(GL_TEXTURE_2D, temp[i]);
-   
-		if (glfwLoadTexture2D(filename[i], GLFW_BUILD_MIPMAPS_BIT | GLFW_ORIGIN_UL_BIT)) {
+	for (i = 0; i < 8; i++) {      
+		if (glfwReadImage(filename[i], &sprite, GLFW_ORIGIN_UL_BIT | GLFW_ALPHA_MAP_BIT)) {
+			glGenTextures(1, &array[i]);
+			glBindTexture(GL_TEXTURE_2D, array[i]);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.Width, sprite.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.Data);
+
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 		} else {
-			printf("loadSprites: failed: %s\n", filename[i]);
+		printf("loadSprites: failed: %s\n", filename[i]);
 			return -1;
 		}
 	}
 
-	sprite_array = temp;
+	sprite_array = array;
 
 	return 0;
 }
 
 void drawSprite(Object object) {
 	glLoadIdentity();
-	glTranslatef(object.x, object.y, 20);
-	glBegin(GL_QUADS);
-		glVertex2f(0, 0);
-		glVertex2f(32, 0);
-		glVertex2f(0, 32);
-		glVertex2f(32, 32);
-	glEnd();
+	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
+	//glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, sprite_array[object.type]);
+
+	glBegin(GL_QUADS);
+		glTexCoord2i(0, 0);
+		glVertex2i(0, 0);
+		glTexCoord2i(255, 0);
+		glVertex2i(32, 0);
+		glTexCoord2i(255, 255);
+		glVertex2i(32, 32);
+		glTexCoord2i(0, 255);
+		glVertex2i(0, 32);
+	glEnd();
 }
 
-/*void makeGrid() {
-	grid = SDL_CreateRGBSurface(SDL_SWSURFACE, map.width * 32, map.height * 32 , 24, 0x00, 0x00, 0x00, 0x00);
+void drawGrid() {
+	int i;
 
-	SDL_Rect rect;
+	glLoadIdentity();
+	glTranslatef(0.0f - map.camx, 0.0f - map.camy, 0.0f);
 
-	int i, j;
-	for (i = 0; i < map.width; i++) {
-		for (j = 0; j < map.height; j++) {
-			rect.x = i * 32;
-			rect.y = j * 32;
-			rect.w = 32;
-			rect.h = 32;
+	glBegin(GL_LINES);
+		glColor3b(0x77, 0x77, 0x77);
 
-			SDL_BlitSurface(sprite_array[0], NULL, grid, &rect);
+		for (i = 0; i < map.width; i++) {
+			glVertex2i(i * 32, 0);
+			glVertex2i(i * 32, map.height * 32);
 		}
-	}
 
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = map.width * 32;
-	rect.h = map.height * 32;
+		for (i = 0; i < map.height; i++) {
+			glVertex2i(0, i * 32);
+			glVertex2i(map.width * 32, i * 32);
+		}
 
-	drawRectOutlines(grid, &rect, SDL_MapRGB(grid->format, 0x77, 0x77, 0x77));
-}*/
-
-/*void drawGrid() {
-	SDL_Rect clip;
-	clip.x = map.camx;
-	clip.y = map.camy;
-	clip.w = map.windw;
-	clip.h = map.windh;
-
-	SDL_BlitSurface(grid, &clip, context, NULL);
-	return;
-}*/
+		glVertex2i(0, map.height * 32);
+		glVertex2i(map.width * 32, map.height * 32);
+		glVertex2i(map.width * 32, 0);
+		glVertex2i(map.width * 32, map.height * 32);
+	glEnd();				
+}
