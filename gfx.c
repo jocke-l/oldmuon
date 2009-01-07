@@ -48,26 +48,28 @@ int loadSprites() {
 	};
 
 	GLFWimage sprite;
-	GLuint array[8];
 
 	int i;
 	for (i = 0; i < 8; i++) {      
 		if (glfwReadImage(filename[i], &sprite, GLFW_ORIGIN_UL_BIT | GLFW_ALPHA_MAP_BIT)) {
-			glGenTextures(1, &array[i]);
-			glBindTexture(GL_TEXTURE_2D, array[i]);
+			glBindTexture(GL_TEXTURE_2D, i);
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.Width, sprite.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.Data);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sprite.Width, sprite.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.Data);
+
+			free(sprite.Data);
 		} else {
-		printf("loadSprites: failed: %s\n", filename[i]);
+			printf("loadSprites: failed: %s\n", filename[i]);
 			return -1;
 		}
 	}
-
-	sprite_array = array;
 
 	return 0;
 }
@@ -76,8 +78,8 @@ void drawSprite(Object object) {
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-	//glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, sprite_array[object.type]);
+	glColor4f(0.0f, 0.0f, 0.0f, 1tg.0f);
+	glBindTexture(GL_TEXTURE_2D, object.type);
 
 	glBegin(GL_QUADS);
 		glTexCoord2i(0, 0);

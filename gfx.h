@@ -12,8 +12,6 @@ typedef struct {
 	int h;
 } Rect;
 
-GLuint *sprite_array;
-
 void drawRect(Rect, GLbyte, GLbyte, GLbyte);
 void drawRectOutlines(Rect, GLbyte, GLbyte, GLbyte);
 int loadSprites();
