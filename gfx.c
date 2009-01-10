@@ -78,19 +78,27 @@ void drawSprite(Object object) {
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-	glColor4f(0.0f, 0.0f, 0.0f, 1tg.0f);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glColor3b(0xFF, 0xFF, 0xFF);
 	glBindTexture(GL_TEXTURE_2D, object.type);
 
 	glBegin(GL_QUADS);
-		glTexCoord2i(0, 0);
-		glVertex2i(0, 0);
-		glTexCoord2i(255, 0);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex2i(1, 0);
+
+		glTexCoord2f(1.0f, 0.0f);
 		glVertex2i(32, 0);
-		glTexCoord2i(255, 255);
-		glVertex2i(32, 32);
-		glTexCoord2i(0, 255);
-		glVertex2i(0, 32);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex2i(32, 31);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex2i(1, 31);
 	glEnd();
+
+	glDisable(GL_BLEND);
 }
 
 void drawGrid() {
@@ -100,21 +108,16 @@ void drawGrid() {
 	glTranslatef(0.0f - map.camx, 0.0f - map.camy, 0.0f);
 
 	glBegin(GL_LINES);
-		glColor3b(0x55, 0x55, 0x55);
+		glColor3b(0x44, 0x44, 0x44);
 
-		for (i = 0; i < map.width; i++) {
+		for (i = 0; i <= map.width; i++) {
 			glVertex2i(i * 32, 0);
 			glVertex2i(i * 32, map.height * 32);
 		}
 
-		for (i = 0; i < map.height; i++) {
+		for (i = 0; i <= map.height; i++) {
 			glVertex2i(0, i * 32);
 			glVertex2i(map.width * 32, i * 32);
 		}
-
-		glVertex2i(0, map.height * 32);
-		glVertex2i(map.width * 32, map.height * 32);
-		glVertex2i(map.width * 32, 0);
-		glVertex2i(map.width * 32, map.height * 32);
 	glEnd();				
 }

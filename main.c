@@ -28,6 +28,9 @@ int main(int argc, char **argv) {
 	glMatrixMode(GL_MODELVIEW);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
+	glDisable( GL_LIGHTING );
+	glDisable( GL_DITHER );
+	glDisable( GL_BLEND );
 
 	/* Load all data here*/
 	loadSprites();
@@ -78,7 +81,7 @@ int main(int argc, char **argv) {
 
 /* Init all structs here */
 void initEverything() {
-	//current_player = 1;
+	current_player = 1;
 	objectTemplateArray_Init();
 	Map_init();
 	initPlayers(2);

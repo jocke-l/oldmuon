@@ -5,23 +5,20 @@ void drawHud() {
 
 	rect.w = 32;
 	rect.h = 32;
-	rect.x = 4;
-	rect.y = map.windh - (32 + 4);
-	//button[0] = rect;
-
-	drawRect(rect, 0x11, 0x11, 0x11);		
-	//SDL_BlitSurface(sprite_array[4], NULL, context, &rect);
+	rect.y = map.windh - (32 + 4);	
 
 	int i;
 	for (i = 5; i < 8; i++) {
-		rect.x += 32 + 4;
-		//button[i - 4] = rect;
+		if (i == 5) {
+			rect.x = 4;
+		} else {
+			rect.x += 32 + 4;
+		}
 
 		drawRect(rect, 0x11, 0x11, 0x11);
-		//SDL_BlitSurface(sprite_array[i], NULL, context, &rect);
 	}
 
-	float scale_factor = 0;
+	float scale_factor;
 	if (map.width >= map.height) {
 		scale_factor = 128 / map.width;
 	} else {
@@ -40,7 +37,7 @@ void drawHud() {
 	rect.x -= 1;
 	rect.y -= 1;
 
-	drawRectOutlines(rect, 0x55, 0x55, 0x55);
+	drawRectOutlines(rect, 0x44, 0x44, 0x44);
 
 	for (i = 0; object_array[i].type != 0; i++) {
 		rect.x = 4 + object_array[i].x * scale_factor;
@@ -63,7 +60,7 @@ void drawHud() {
 	rect.w = map.windw / 32 * scale_factor;
 	rect.h = map.windh / 32 * scale_factor;
 
-	drawRectOutlines(rect, 0x55, 0x55, 0x55);
+	drawRectOutlines(rect, 0x44, 0x44, 0x44);
 }
 
 /*void uiControl() {

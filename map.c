@@ -31,6 +31,7 @@ int fileLoad(char *file) {
 				map.width = c;
 				c = getc(File);
 				map.width = map.width + c * 0x100;
+
 				c = getc(File);
 				map.height = c;
 				c = getc(File);
@@ -47,6 +48,7 @@ int fileLoad(char *file) {
 				object_array[i].y = getc(File);
 				c = getc(File);
 				object_array[i].y = object_array[i].y + c * 0x100;
+
 				object_array[i].owner = getc(File);
 				
 				object_array[i].type = 0x2;
