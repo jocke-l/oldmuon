@@ -22,15 +22,20 @@ int main(int argc, char **argv) {
 	/* Init all structs in that function */
 	initEverything();
 
+	glViewport(0, 0, map.windw, map.windh);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, map.windw, map.windh, 0, 0, 1);
 	glMatrixMode(GL_MODELVIEW);
-	glDisable(GL_DEPTH_TEST);
+
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
-	glDisable( GL_LIGHTING );
-	glDisable( GL_DITHER );
-	glDisable( GL_BLEND );
+	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glAlphaFunc(GL_GREATER, 0.1f);
+	glDepthMask(GL_TRUE);
 
 	/* Load all data here*/
 	loadSprites();
@@ -49,7 +54,7 @@ int main(int argc, char **argv) {
 		Timer_S_ST(&fps, 0);
 
 		/* Clear Screen */
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if (!glfwGetWindowParam(GLFW_OPENED))
 			running = 0;

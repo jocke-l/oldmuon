@@ -1,11 +1,11 @@
 #include "muon.h"
 
-void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
+void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b, GLbyte a) {
 	glLoadIdentity();
 	glTranslatef(rect.x, rect.y, 0.0f);
 
 	glBegin(GL_LINES);
-		glColor3b(r, g, b);
+		glColor4b(r, g, b, a);
 
 		glVertex2i(0, 1);
 		glVertex2i(rect.w + 1, 1);
@@ -21,12 +21,12 @@ void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
 	glEnd();
 }
 
-void drawRect(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
+void drawRect(Rect rect, GLbyte r, GLbyte g, GLbyte b, GLbyte a) {
 	glLoadIdentity();
 	glTranslatef(rect.x, rect.y, 0.0f);
 
 	glBegin(GL_QUADS);
-		glColor3b(r, g, b);
+		glColor4b(r, g, b, a);
 
 		glVertex2i(0, 0);
 		glVertex2i(rect.w, 0);
@@ -75,30 +75,25 @@ int loadSprites() {
 }
 
 void drawSprite(Object object) {
+	glBindTexture(GL_TEXTURE_2D, object.type);
+
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glColor3b(0xFF, 0xFF, 0xFF);
-	glBindTexture(GL_TEXTURE_2D, object.type);
-
+	glColor4b(0xFF, 0xFF, 0xFF, 0xFF);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex2i(1, 0);
 
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex2i(32, 0);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex2i(1, 31);
 
 		glTexCoord2f(1.0f, 1.0f);
 		glVertex2i(32, 31);
 
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex2i(1, 31);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex2i(32, 0);
 	glEnd();
-
-	glDisable(GL_BLEND);
 }
 
 void drawGrid() {
@@ -108,7 +103,7 @@ void drawGrid() {
 	glTranslatef(0.0f - map.camx, 0.0f - map.camy, 0.0f);
 
 	glBegin(GL_LINES);
-		glColor3b(0x44, 0x44, 0x44);
+		glColor4b(0x44, 0x44, 0x44, 0xFF);
 
 		for (i = 0; i <= map.width; i++) {
 			glVertex2i(i * 32, 0);
