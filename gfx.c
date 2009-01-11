@@ -49,7 +49,7 @@ int loadSprites() {
 	GLFWimage sprite;
 
 	int i;
-	for (i = 0; i < 8; i++) {      
+	for (i = 0; i < 8; i++) {
 		if (glfwReadImage(filename[i], &sprite, GLFW_ORIGIN_UL_BIT | GLFW_ALPHA_MAP_BIT)) {
 			glBindTexture(GL_TEXTURE_2D, i);
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -79,7 +79,11 @@ void drawSprite(Object object) {
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-	glColor4b(0x0, 0x00, 0x00, 0xFF);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE);
+
+	//glColor4b(0x0, 0x00, 0x00, 0xFF);
+	glColor3b(0x0,0x00,0x00);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex2i(1, 0);
@@ -93,6 +97,8 @@ void drawSprite(Object object) {
 		glTexCoord2f(1.0f, 0.0f);
 		glVertex2i(32, 0);
 	glEnd();
+
+	glDisable(GL_BLEND);
 }
 
 void drawGrid() {
@@ -113,5 +119,5 @@ void drawGrid() {
 			glVertex2i(0, i * 32);
 			glVertex2i(map.width * 32, i * 32);
 		}
-	glEnd();				
+	glEnd();
 }
