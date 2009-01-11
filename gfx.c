@@ -1,37 +1,36 @@
 #include "muon.h"
 
-void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b, GLbyte a) {
+void drawRectOutlines(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
 	glLoadIdentity();
 	glTranslatef(rect.x, rect.y, 0.0f);
 
+	glColor3b(r, g, b);
 	glBegin(GL_LINES);
-		glColor4b(r, g, b, a);
-
 		glVertex2i(0, 1);
 		glVertex2i(rect.w + 1, 1);
 
-		glVertex2i(0, rect.h);
+
+		glVertex2i(rect.w, 1);
 		glVertex2i(rect.w, rect.h);
 
 		glVertex2i(0, 1);
 		glVertex2i(0, rect.h);
 
-		glVertex2i(rect.w, 1);
+		glVertex2i(0, rect.h);
 		glVertex2i(rect.w, rect.h);
 	glEnd();
 }
 
-void drawRect(Rect rect, GLbyte r, GLbyte g, GLbyte b, GLbyte a) {
+void drawRect(Rect rect, GLbyte r, GLbyte g, GLbyte b) {
 	glLoadIdentity();
 	glTranslatef(rect.x, rect.y, 0.0f);
 
+	glColor3b(r, g, b);
 	glBegin(GL_QUADS);
-		glColor4b(r, g, b, a);
-
 		glVertex2i(0, 0);
+		glVertex2i(0, rect.h - 1);
+		glVertex2i(rect.w, rect.h - 1);
 		glVertex2i(rect.w, 0);
-		glVertex2i(rect.w, rect.h);
-		glVertex2i(0, rect.h);
 	glEnd();
 }
 
@@ -80,7 +79,7 @@ void drawSprite(Object object) {
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-	glColor4b(0xFF, 0xFF, 0xFF, 0xFF);
+	glColor4b(0x0, 0x00, 0x00, 0xFF);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex2i(1, 0);
@@ -103,7 +102,7 @@ void drawGrid() {
 	glTranslatef(0.0f - map.camx, 0.0f - map.camy, 0.0f);
 
 	glBegin(GL_LINES);
-		glColor4b(0x44, 0x44, 0x44, 0xFF);
+		glColor3b(0x44, 0x44, 0x44);
 
 		for (i = 0; i <= map.width; i++) {
 			glVertex2i(i * 32, 0);

@@ -15,7 +15,7 @@ void drawHud() {
 			rect.x += 32 + 4;
 		}
 
-		drawRect(rect, 0x11, 0x11, 0x11, 0xFF);
+		drawRect(rect, 0x11, 0x11, 0x11);
 	}
 
 	float scale_factor;
@@ -30,14 +30,14 @@ void drawHud() {
 	rect.x = 4;
 	rect.y = 4;
 
-	drawRect(rect, 0x11, 0x11, 0x11, 0xFF);
+	drawRect(rect, 0x11, 0x11, 0x11);
 
 	rect.w += 1;
 	rect.h += 1;
 	rect.x -= 1;
 	rect.y -= 1;
 
-	drawRectOutlines(rect, 0x44, 0x44, 0x44, 0xFF);
+	drawRectOutlines(rect, 0x44, 0x44, 0x44);
 
 	for (i = 0; object_array[i].type != 0; i++) {
 		rect.x = 4 + object_array[i].x * scale_factor;
@@ -52,7 +52,7 @@ void drawHud() {
 		bb = players[object_array[i].owner].b;
 
 
-		drawRect(rect, rr, gg, bb, 0xFF);
+		drawRect(rect, rr, gg, bb);
 	}
 
 	rect.x = 4 + map.camx * scale_factor / 32;
@@ -60,7 +60,7 @@ void drawHud() {
 	rect.w = map.windw / 32 * scale_factor;
 	rect.h = map.windh / 32 * scale_factor;
 
-	drawRectOutlines(rect, 0x44, 0x44, 0x44, 0xFF);
+	drawRectOutlines(rect, 0x44, 0x44, 0x44);
 }
 
 /*void uiControl() {

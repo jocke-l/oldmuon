@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	/* Init window related integears */
 	//map.windw = 640;
 	//map.windh = 480;
-	frame_per_sec = 75;
+	//frame_per_sec = 75;
 	
 	fileLoad("conf");
 
@@ -28,14 +28,15 @@ int main(int argc, char **argv) {
 	glOrtho(0, map.windw, map.windh, 0, 0, 1);
 	glMatrixMode(GL_MODELVIEW);
 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glAlphaFunc(GL_GREATER, 0.1f);
+	glDepthMask(GL_TRUE);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glEnable(GL_ALPHA_TEST);
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 0.1f);
-	glDepthMask(GL_TRUE);
 
 	/* Load all data here*/
 	loadSprites();

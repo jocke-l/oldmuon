@@ -12,8 +12,8 @@ typedef struct {
 	int h;
 } Rect;
 
-void drawRect(Rect, GLbyte, GLbyte, GLbyte, GLbyte);
-void drawRectOutlines(Rect, GLbyte, GLbyte, GLbyte, GLbyte);
+void drawRect(Rect, GLbyte, GLbyte, GLbyte);
+void drawRectOutlines(Rect, GLbyte, GLbyte, GLbyte);
 int loadSprites();
 void drawSprite(Object);
 //void makeGrid();
