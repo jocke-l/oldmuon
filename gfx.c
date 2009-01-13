@@ -79,11 +79,11 @@ void drawSprite(Object object) {
 	glLoadIdentity();
 	glTranslatef(object.x * 32 - map.camx, object.y * 32 - map.camy, 0.0f);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE);
 
 	//glColor4b(0x0, 0x00, 0x00, 0xFF);
-	glColor3b(0x0,0x00,0x00);
+	glColor3b(0x00, 0x00, 0x00);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex2i(1, 0);
